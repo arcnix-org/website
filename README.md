@@ -10,6 +10,8 @@ English is served at `/` and Simplified Chinese at `/zh-cn/`. Both use the same 
 
 ## Deployment
 
-Pushes to `main` build the static site and deploy `dist/` to GitHub Pages. Set the repository's Pages source to GitHub Actions and custom domain to `arcnix.org`. The apex DNS records must point to GitHub Pages before HTTPS can be enabled.
+GitHub Actions builds and checks both locales for pull requests. Pushes to `main` also deploy the checked `dist/` to the Cloudflare Pages project `arcnix` using the Wrangler version in the lockfile. You can rerun a production deployment from the Actions tab on `main`.
+
+Set the Actions repository variable `CLOUDFLARE_ACCOUNT_ID` and the Actions repository secret `CLOUDFLARE_API_TOKEN`. The token needs **Account → Cloudflare Pages → Edit** for the account hosting the project. The project serves [arcnix.pages.dev](https://arcnix.pages.dev) and its custom domain is managed under **Workers & Pages → arcnix → Custom domains**.
 
 Source and Arcnix assets are licensed under Apache-2.0. Inter is distributed under the SIL Open Font License (see `public/fonts/Inter-LICENSE.txt`).
