@@ -1,0 +1,55 @@
+---
+const vents = Array.from({ length: 17 }, (_, i) => i * 6);
+---
+<svg viewBox="0 0 600 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="lid" x2=".8" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#b6d6f6"/><stop offset=".28" stop-color="#637f9b"/><stop offset=".65" stop-color="#354f6b"/><stop offset="1" stop-color="#7b9ab9"/>
+    </linearGradient>
+    <linearGradient id="front"><stop stop-color="#43617c"/><stop offset=".27" stop-color="#263b51"/><stop offset="1" stop-color="#152638"/></linearGradient>
+    <linearGradient id="side"><stop stop-color="#122233"/><stop offset="1" stop-color="#344c65"/></linearGradient>
+    <pattern id="grid" width="48" height="24" patternUnits="userSpaceOnUse"><path d="m0 0 48 24m0-24L0 24" stroke="#7a96ac" stroke-width=".7" opacity=".22"/></pattern>
+    <radialGradient id="fade"><stop offset=".3" stop-color="white"/><stop offset="1" stop-color="black"/></radialGradient>
+    <mask id="floor"><ellipse cx="305" cy="320" rx="322" ry="122" fill="url(#fade)"/></mask>
+    <g id="unit" stroke-linejoin="round">
+      <path d="m130 165 165-85 180 88-165 88z" fill="url(#lid)" stroke="#a1b4c8"/>
+      <path d="m130 165 180 91v32l-180-91z" fill="url(#front)" stroke="#8094a7"/>
+      <path d="m310 256 165-88v32l-165 88z" fill="url(#side)" stroke="#607d93"/>
+      <g transform="matrix(1 .505 0 1 138 176)">
+        <rect width="8" height="12" rx="2" fill="#0c1823" stroke="#8395a6"/>
+        <rect x="15" width="23" height="12" rx="1.5" fill="#101c27"/>
+        <path d="M18 4h17" stroke="#bbf789" stroke-width="2.5"/>
+        {vents.map(x => <path d={`M${47+x} 1v11`} stroke="#0b1823" stroke-width="3"/>)}
+        <circle cx="157" cy="5" r="3" fill="#c5fca1"/>
+      </g>
+      <g transform="matrix(1 -.533 0 1 321 257)" stroke="#536b7f" stroke-width="1.4">
+        <path d="M0 5h141M0 10h141M0 15h141"/>
+      </g>
+    </g>
+  </defs>
+  <path d="M0 173h600v257H0z" fill="url(#grid)" mask="url(#floor)"/>
+  <g stroke="#95cbaa" stroke-width="1" opacity=".75" stroke-linejoin="round">
+    <path d="m142 289-58 31 47 23-51 26H36m342-45 65 32 55-28h62m-376-37-78-39H51m356-61 106-55h43"/>
+    <g fill="#c3f599"><circle cx="36" cy="369" r="2.5"/><circle cx="560" cy="328" r="2.5"/><circle cx="51" cy="252" r="2.5"/></g>
+  </g>
+  <path d="m115 282 176-89 201 93-176 96z" fill="#9bc5c1" opacity=".1" stroke="#709c9d"/>
+  <use href="#unit" y="69"/><use href="#unit" y="25"/>
+  <path d="m130 180 180 91 165-88" stroke="#b2fc86" stroke-width="2"/>
+  <use href="#unit" y="-22"/>
+  <g transform="matrix(1 .49 -1 .515 295 65)">
+    <rect x="8" y="6" width="155" height="145" rx="4" stroke="#bacada" opacity=".57"/>
+    <g fill="#273c51" opacity=".85">
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => <rect x={16+i*4.7} y="16" width="2.1" height="50" rx="1"/>)}
+    </g>
+    <rect x="92" y="81" width="54" height="47" rx="3" fill="#182b38" stroke="#7895a0"/>
+    <path d="m102 94 10 9-10 9m15 2h13" stroke="#c6f6a1" stroke-width="4" stroke-linecap="square"/>
+    {[[14,12],[155,12],[14,144],[155,144]].map(([cx,cy]) => <circle {cx} {cy} r="1.6" fill="#2a4154"/>)}
+  </g>
+  <g stroke="#8295a2" stroke-width="1" fill="none">
+    <path d="M360 117l44-47h56M157 231l-37-43H51" stroke-dasharray="2.5 3"/>
+    <circle cx="360" cy="117" r="3"/><circle cx="157" cy="231" r="3"/>
+  </g>
+  <g font-family="Consolas,monospace" font-size="12" letter-spacing="1" fill="#b8c9d4">
+    <text x="466" y="74">SSH</text><text x="50" y="179">SFTP</text>
+  </g>
+</svg>

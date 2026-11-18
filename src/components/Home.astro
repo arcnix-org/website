@@ -1,0 +1,125 @@
+---
+import Rack from './Rack.astro';
+import Icon from './Icon.astro';
+import '../styles/site.css';
+
+interface Props { locale: 'en' | 'zh-CN' }
+const { locale } = Astro.props;
+const zh = locale === 'zh-CN';
+const t = (en: string, cn: string) => zh ? cn : en;
+const repo = 'https://github.com/arcnix-org/arcnix';
+const guide = repo + '/blob/main/' + t('README.md', 'README.zh-CN.md');
+const releases = repo + '/releases/latest';
+const title = t('Arcnix — A desktop workspace for SSH servers', 'Arcnix — 通过 SSH 管理服务器的桌面工作台');
+const intro = t('Arcnix brings your terminal, files, and server tools into one desktop workspace. Connect over SSH and get to work.', '用 Arcnix 通过 SSH 连接服务器，在同一个桌面上打开终端、传输文件、查看服务状态。');
+const views = [
+  { id: 'files', icon: 'files', name: t('File explorer', '文件管理器'), detail: t('Browse remote directories, edit text files, and transfer folders over SFTP.', '浏览远程目录、编辑文本文件，通过 SFTP 上传和下载整个文件夹。') },
+  { id: 'terminal', icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Keep multiple shells open. Reconnect to existing sessions when tmux is available on the server.', '同时打开多个终端。服务器装有 tmux 时，重新连接后可以继续使用原有会话。') },
+  { id: 'docker', icon: 'docker', name: 'Docker', detail: t('Inspect containers, ports, volumes, and logs on Docker-enabled servers.', '在已安装 Docker 的服务器上查看容器、端口、卷和运行日志。') },
+] as const;
+const operations = [
+  { icon: 'monitor', title: t('Inspect a running server', '查看服务器运行状态'), body: t('Follow CPU, memory, and network trends. Open a systemd service to read its journal.', '查看 CPU、内存和网络趋势。选中一个 systemd 服务，即可阅读它的日志。') },
+  { icon: 'tasks', title: t('Run tasks across hosts', '跨服务器执行任务'), body: t('Pick trusted hosts, review the plan for each one, and check the results after you reconnect.', '选择已信任的服务器，逐台核对执行计划。重新连接后仍可查询任务结果。') },
+  { icon: 'backup', title: t('Restore from a snapshot', '从快照恢复文件'), body: t('Browse restic snapshots, select the files you need, and verify the restore in a new directory.', '浏览 restic 快照，选择所需文件，恢复到新的目录并验证结果。') },
+] as const;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101516" />
+    <title>{title}</title>
+    <meta name="description" content={intro} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL('/', Astro.site)} />
+    <link rel="alternate" hreflang="zh-CN" href={new URL('/zh-cn/', Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={intro} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL('/media/files.webp', Astro.site)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
+    <header><div class="wrap bar">
+      <a class="brand" href={zh ? '/zh-cn/' : '/'}><img width="34" height="34" src="/brand.svg" alt="" />Arcnix</a>
+      <nav aria-label={t('Main navigation', '主导航')}>
+        <a href="#workspace">{t('Workspace','工作台')}</a>
+        <a href="#operations">{t('Operations','运维')}</a>
+        <a href={guide}>{t('Docs','文档')}</a>
+      </nav>
+      <div class="nav-tools">
+        <a class="language" lang={zh ? 'en' : 'zh-CN'} hreflang={zh ? 'en' : 'zh-CN'} href={zh ? '/' : '/zh-cn/'}><Icon name="globe" />{t('中文','English')}</a>
+        <a class="git" href={repo} aria-label={t('Arcnix on GitHub','Arcnix GitHub 仓库')}><Icon name="github" /><span>GitHub</span></a>
+      </div>
+    </div></header>
+    <main id="main">
+      <section class="hero"><div class="wrap hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><i></i>{t('Open source SSH workspace','开源 SSH 工作台')}</div>
+          <h1>{t('Your servers.','你的服务器，')}<br/><em>{t('One desktop.','一个桌面。')}</em></h1>
+          <p>{intro}</p>
+          <div class="actions">
+            <a class="button primary" href={releases}><Icon name="download" />{t('Download Arcnix','下载 Arcnix')}</a>
+            <a class="button secondary" href={guide}><Icon name="book" />{t('Read the docs','阅读文档')}</a>
+          </div>
+        </div>
+        <div class="diagram"><Rack /></div>
+      </div></section>
+      <div class="specs"><dl class="wrap">
+        {[[t('Connection','连接方式'),'SSH / SFTP'],[t('Remote agent','远程 Agent'),t('None required','无需安装')],[t('Built with','开发语言'),'Rust'],[t('License','开源许可'),'Apache 2.0']].map(([k,v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl></div>
+      <section class="wrap section" id="workspace">
+        <div class="eyebrow"><i></i>{t('The workspace','桌面工作台')}</div>
+        <h2>{t('Inside Arcnix','看看 Arcnix 的桌面')}</h2>
+        <div class="viewer">
+          <div class="switches">
+            {views.map((view, i) => <a href={`/media/${view.id}.webp`} class:list={['switch', { selected: i === 0 }]} data-view={view.id} data-caption={view.detail}>
+              <Icon name={view.icon}/><span><strong>{view.name}</strong><small>{view.detail}</small></span>
+            </a>)}
+          </div>
+          <figure><a id="screen-link" href="/media/files.webp" aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src="/media/files.webp" width="1440" height="980" alt={views[0].name} loading="lazy" /></a>
+          <figcaption><span>Arcnix Desktop</span><span id="screen-name">{views[0].name}</span></figcaption></figure>
+        </div>
+      </section>
+      <section class="ops" id="operations"><div class="wrap section">
+        <div class="eyebrow"><i></i>{t('Server operations','服务器运维')}</div>
+        <h2>{t('Beyond the terminal','终端之外的日常运维')}</h2>
+        <div class="features">{operations.map(op => <article><Icon name={op.icon}/><h3>{op.title}</h3><p>{op.body}</p></article>)}</div>
+      </div></section>
+      <section class="wrap start"><div>
+        <h2>{t('Connect your first server','连接第一台服务器')}</h2>
+        <p>{t('Download the Windows x64 build, then add a server or import your SSH configuration. Windows requires WebView2.', '下载 Windows x64 版本，添加服务器或导入已有的 SSH 配置。Windows 运行环境需要 WebView2。')}</p>
+        <a href={guide}>{t('Setup and source build instructions','查看配置与源码构建说明')}</a>
+      </div><a class="button primary" href={releases}><Icon name="download"/>{t('View releases','查看发行版本')}</a></section>
+    </main>
+    <footer><div class="wrap bar"><a class="brand" href={zh ? '/zh-cn/' : '/'}><img src="/brand.svg" alt="" width="24" height="24"/>Arcnix</a>
+      <div><a href={repo}>GitHub</a><a href={repo + '/issues'}>{t('Issues','问题反馈')}</a><a href={repo + '/blob/main/LICENSE'}>Apache 2.0</a></div>
+    </div></footer>
+    <script>
+      const choices = document.querySelectorAll<HTMLAnchorElement>('.switch');
+      const screen = document.querySelector<HTMLImageElement>('#screen')!;
+      const full = document.querySelector<HTMLAnchorElement>('#screen-link')!;
+      const caption = document.querySelector<HTMLElement>('#screen-name')!;
+      for (const choice of choices) {
+        if (choice.classList.contains('selected')) choice.setAttribute('aria-current', 'true');
+        choice.addEventListener('click', event => {
+          if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+          event.preventDefault();
+          for (const item of choices) {
+            item.classList.toggle('selected', item === choice);
+            if (item === choice) item.setAttribute('aria-current', 'true');
+            else item.removeAttribute('aria-current');
+          }
+          const name = choice.querySelector('strong')!.textContent!;
+          screen.src = full.href = choice.href;
+          screen.alt = caption.textContent = name;
+        });
+      }
+    </script>
+  </body>
+</html>
