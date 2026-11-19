@@ -3,17 +3,17 @@ interface Props { locale: 'en' | 'zh-CN' }
 const { locale } = Astro.props;
 const zh = locale === 'zh-CN';
 const clips = [
-  { id: 'player-tour', label: zh ? '视频播放' : 'Video player', title: zh ? '打开远程视频并跳播' : 'Open and seek through a remote video', time: '0:15' },
-  { id: 'docker-tour', label: 'Docker', title: zh ? '启动容器，查看日志、卷和端口（开发版界面）' : 'Start a container and inspect logs, volumes and ports (development preview)', time: '0:21' },
-  { id: 'monitor-tour', label: zh ? '服务器监控' : 'Monitor', title: zh ? '从网络概览查看服务日志' : 'Explore network activity and service logs', time: '0:18' },
-  { id: 'workspace-tour', label: zh ? '代码编辑' : 'Code editor', title: zh ? '编辑远程交接文档' : 'Edit a remote handover note', time: '0:21' },
+  { id: 'player-tour', label: zh ? '视频播放' : 'Video player', title: zh ? '打开远程视频并跳播' : 'Open and seek through a remote video' },
+  { id: 'docker-tour', label: 'Docker', title: zh ? '启动容器，查看日志、卷和端口' : 'Start a container and inspect logs, volumes and ports' },
+  { id: 'monitor-tour', label: zh ? '服务器监控' : 'Monitor', title: zh ? '从网络概览查看服务日志' : 'Explore network activity and service logs' },
+  { id: 'workspace-tour', label: zh ? '代码编辑' : 'Code editor', title: zh ? '编辑远程交接文档' : 'Edit a remote handover note' },
 ];
 const first = clips[0];
 ---
 <figure class="tour" aria-labelledby="tour-title">
   <nav class="tour-choices" aria-label={zh ? '选择操作实录' : 'Choose a walkthrough'}>
     {clips.map((clip, i) => <a href={`/media/${clip.id}.mp4`} aria-current={i === 0 ? 'true' : undefined}
-      data-title={clip.title} data-time={clip.time} data-base={`/media/${clip.id}`}>{clip.label}</a>)}
+      data-title={clip.title} data-base={`/media/${clip.id}`}>{clip.label}</a>)}
   </nav>
   <div class="tour-stage">
     <video id="workspace-film" controls playsinline preload="none" width="1440" height="900"
@@ -29,7 +29,6 @@ const first = clips[0];
   </div>
   <figcaption>
     <strong id="tour-title">{first.title}</strong>
-    <span><time>{first.time}</time> · Windows x64</span>
   </figcaption>
 </figure>
 <script>
@@ -37,7 +36,6 @@ const first = clips[0];
   const play = document.querySelector<HTMLButtonElement>('.tour-play')!;
   const choices = document.querySelectorAll<HTMLAnchorElement>('.tour-choices a');
   const title = document.querySelector('#tour-title')!;
-  const duration = document.querySelector('.tour time')!;
   function start() {
     film.controls = true;
     play.hidden = true;
@@ -64,7 +62,6 @@ const first = clips[0];
           }
           title.textContent = choice.dataset.title!;
           film.setAttribute('aria-label', choice.dataset.title!);
-          duration.textContent = choice.dataset.time!;
           film.load();
         }
         start();
