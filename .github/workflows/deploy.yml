@@ -9,8 +9,6 @@ permissions:
 jobs:
   website:
     runs-on: ubuntu-latest
-    env:
-      ARCNIX_GUIDE_DIR: .docs-source/docs/guide
     concurrency:
       group: website-${{ github.ref }}
       cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -18,14 +16,6 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.ref == 'refs/heads/main' && 'main' || github.sha }}
-          persist-credentials: false
-      - name: Read the user guides from Arcnix
-        uses: actions/checkout@v7
-        with:
-          repository: arcnix-org/arcnix
-          ref: main
-          path: .docs-source
-          sparse-checkout: docs/guide
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:

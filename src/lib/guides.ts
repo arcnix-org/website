@@ -15,7 +15,7 @@ export async function guideRoutes() {
     }));
     for (const slug of ['quick-start', 'install']) {
       if (!topics.some(topic => topic.slug === slug)) {
-        throw new Error(`Missing ${locale}/${slug}. Check the Arcnix docs/guide checkout.`);
+        throw new Error(`Missing guide: docs/guide/${locale}/${slug}.md`);
       }
     }
     const other = locale === 'en' ? 'zh-cn' : 'en';

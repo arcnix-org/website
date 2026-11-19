@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 const guides = defineCollection({
   loader: glob({
-    base: process.env.ARCNIX_GUIDE_DIR || '../arcnix/docs/guide',
+    base: './docs/guide',
     pattern: '{en,zh-cn}/*.md',
   }),
   schema: z.object({
