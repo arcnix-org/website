@@ -67,6 +67,11 @@ p { color: var(--soft); font-size: 1.04rem; line-height: 1.7; }
   margin: 0; background: #0e191d; padding: .4rem; border: 1px solid #7f999790;
   border-radius: .8rem; box-shadow: 0 1.75rem 4rem #020b0c85;
 }
+.tour-choices { display:flex; flex-wrap:wrap; gap:.2rem; padding:0 0 .4rem; }
+.tour-choices a { padding:.5rem .65rem; font-size:.9rem; color:#baccc7; border-radius:.35rem; }
+.tour-choices a:hover { color:white; }
+.tour-choices a[aria-current] { background:#2b403b; color:#c6f7da; }
+.tour figcaption > span { white-space:nowrap; }
 .tour-stage { position: relative; overflow: hidden; border-radius: .46rem; background: #0b1114; }
 .tour video { width: 100%; height: auto; display: block; }
 .tour-play {

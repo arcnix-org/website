@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.450
+Open Monitor from the server desktop.
+
+00:00:02.450 --> 00:00:07.000
+Review the resource overview and expand the window.
+
+00:00:07.000 --> 00:00:10.450
+Inspect network throughput and interface counters.
+
+00:00:10.450 --> 00:00:15.050
+Open Services and select nginx.service.
+
+00:00:15.050 --> 00:00:18.440
+Read the log entries for the selected service.

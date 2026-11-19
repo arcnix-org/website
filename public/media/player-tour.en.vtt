@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.650
+Open Tidal studies.mp4 in the remote media folder.
+
+00:00:02.650 --> 00:00:07.250
+The player streams the clip from the server over SFTP.
+
+00:00:07.250 --> 00:00:10.050
+Maximize the player inside the server desktop.
+
+00:00:10.050 --> 00:00:13.480
+Use the timeline to jump ahead and resume playback.
+
+00:00:13.480 --> 00:00:15.320
+Pause on the current frame.

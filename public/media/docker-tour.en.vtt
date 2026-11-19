@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.120 --> 00:00:03.040
+Browse containers on the Studio server.
+
+00:00:03.040 --> 00:00:05.320
+Open report-worker to inspect the stopped container.
+
+00:00:05.320 --> 00:00:09.490
+Review the target and confirm Start.
+
+00:00:09.490 --> 00:00:12.910
+Read the latest log entries from the worker.
+
+00:00:12.910 --> 00:00:18.300
+Select site-content to inspect its mount point.
+
+00:00:18.300 --> 00:00:20.960
+Check the published and exposed container ports.

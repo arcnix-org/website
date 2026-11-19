@@ -34,7 +34,7 @@ const views = [
   { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Browse remote directories and open text files in Code. Search across files or preview Markdown beside the editor.', '浏览远端目录，在 Code 中打开文本文件。可跨文件搜索，也可在编辑器旁实时预览 Markdown。') },
   { id: 'terminal', width: 1126, height: 938, icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Open a shell in any remote folder and reconnect to existing sessions when tmux is available.', '在所选远端文件夹直接打开终端。服务器装有 tmux 时可恢复原有会话。') },
   { id: 'monitor', width: 872, height: 635, icon: 'monitor', name: t('Monitor', '监控'), detail: t('Check CPU, memory, disks, network, processes, listening ports, and service logs.', '查看 CPU、内存、磁盘、网络、进程、监听端口和服务日志。') },
-  { id: 'docker', width: 1126, height: 938, icon: 'docker', name: 'Docker', detail: t('Inspect containers, ports, volumes, and logs, and manage Compose projects.', '查看容器、端口、卷和日志，管理 Docker Compose 项目。') },
+  { id: 'docker-tour', width: 1440, height: 900, icon: 'docker', name: 'Docker', detail: t('Browse containers and volumes, check port mappings and read logs. The screenshot shows the next interface.', '查看容器与卷、检查端口映射、读取容器日志。图中为开发版界面。') },
 ] as const;
 const operations = [
   { icon: 'code', title: t('Install server apps', '安装服务器应用'), body: t('Choose from system packages, Snap, or Docker Compose based on what the server supports.', '在应用商店里选择当前服务器支持的安装方式，包括系统包、Snap 和 Docker Compose。') },
@@ -60,7 +60,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={intro} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL('/media/workspace-tour.webp', Astro.site)} />
+    <meta property="og:image" content={new URL('/media/player-tour.webp', Astro.site)} />
   </head>
   <body>
     <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
@@ -123,7 +123,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             </li>)}</ul>
           </article>)}
         </div>
-        <p class="update-note">{t('Already using Arcnix on Windows? Open Settings to check for updates.', '已经在 Windows 上使用 Arcnix？打开应用的「设置」即可检查更新。')}</p>
+        <p class="update-note">{t('On Windows, upgrading from v0.3.1 to the next release will require the installer or portable ZIP once. Later releases will update in-app from the ZIP.', 'Windows 用户从 v0.3.1 升到下一版时，需手动下载一次安装器或便携 ZIP。此后即可在应用内通过便携 ZIP 更新。')}</p>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>
