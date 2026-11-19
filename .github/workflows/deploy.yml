@@ -16,6 +16,9 @@ jobs:
       cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref == 'refs/heads/main' && 'main' || github.sha }}
+          persist-credentials: false
       - name: Read the user guides from Arcnix
         uses: actions/checkout@v7
         with:
@@ -50,4 +53,4 @@ jobs:
           project="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/arcnix"
           production_branch=$(curl --fail --silent --show-error \
             --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" "$project" | jq -er '.result.production_branch')
-          npm exec -- wrangler pages deploy dist --project-name arcnix --branch "$production_branch" --commit-hash "$GITHUB_SHA"
+          npm exec -- wrangler pages deploy dist --project-name arcnix --branch "$production_branch" --commit-hash "$(git rev-parse HEAD)"
