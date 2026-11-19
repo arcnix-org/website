@@ -1,0 +1,43 @@
+---
+interface Props { locale: 'en' | 'zh-CN' }
+const { locale } = Astro.props;
+const zh = locale === 'zh-CN';
+const title = zh ? '编辑远程交接文档' : 'Edit a remote handover note';
+---
+<figure class="tour" aria-labelledby="tour-title">
+  <div class="tour-stage">
+    <video id="workspace-film" controls playsinline preload="none" width="1440" height="900"
+      poster="/media/workspace-tour.webp" aria-label={title}>
+      <source src="/media/workspace-tour.mp4" type="video/mp4" />
+      <track kind="captions" srclang="en" label="English" src="/media/workspace-tour.en.vtt" default={!zh} />
+      <track kind="captions" srclang="zh-CN" label="简体中文" src="/media/workspace-tour.zh-CN.vtt" default={zh} />
+      <a href="/media/workspace-tour.mp4">{zh ? '打开 MP4' : 'Open MP4'}</a>
+    </video>
+    <button class="tour-play" type="button" aria-controls="workspace-film" hidden>
+      <span aria-hidden="true" class="play-glyph"></span>{zh ? '播放实录' : 'Play demo'}
+    </button>
+  </div>
+  <figcaption>
+    <strong id="tour-title">{title}</strong>
+    <span>0:21 · Windows x64</span>
+  </figcaption>
+</figure>
+<script>
+  const film = document.querySelector<HTMLVideoElement>('#workspace-film')!;
+  const play = document.querySelector<HTMLButtonElement>('.tour-play')!;
+  if (film.canPlayType('video/mp4')) {
+    film.controls = false;
+    play.hidden = false;
+    play.addEventListener('click', async () => {
+      film.controls = true;
+      play.hidden = true;
+      film.focus();
+      try {
+        await film.play();
+      } catch {
+        // Native controls let the visitor retry a failed or interrupted load.
+        film.controls = true;
+      }
+    });
+  }
+</script>

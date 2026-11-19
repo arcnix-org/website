@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import WorkspaceTour from './WorkspaceTour.astro';
 import '../styles/site.css';
 
 interface Props { locale: 'en' | 'zh-CN' }
@@ -8,7 +9,7 @@ const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = repo + '/blob/main/' + t('README.md', 'README.zh-CN.md');
-const version = '0.3.0';
+const version = '0.3.1';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
@@ -27,9 +28,10 @@ const platforms = [
   ] },
 ];
 const title = t('Arcnix — A desktop workspace for SSH servers', 'Arcnix — 通过 SSH 管理服务器的桌面工作台');
-const intro = t('Open a terminal, manage files, and monitor processes and services in the same workspace.', '在同一个工作台里打开终端、管理文件，查看服务器进程和服务状态。');
+const intro = t('Connect over SSH to browse remote files, edit code and open a shell in the same workspace.', '通过 SSH 连接，在同一张桌面上浏览远程文件、编辑代码、打开终端。');
 const views = [
-  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Search remote directories, save favorites, label folders, and edit text or Markdown.', '搜索远端目录、添加收藏和颜色标签，编辑文本或预览 Markdown。') },
+  { id: 'code', width: 1440, height: 900, icon: 'code', name: t('Code editor', 'Code 编辑器'), detail: t('Edit a remote file, save it over SFTP and read the Markdown preview alongside your changes.', '直接编辑远程文件，通过 SFTP 保存，在旁边查看 Markdown 的渲染效果。') },
+  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Browse remote directories and open text files in Code. Search across files or preview Markdown beside the editor.', '浏览远端目录，在 Code 中打开文本文件。可跨文件搜索，也可在编辑器旁实时预览 Markdown。') },
   { id: 'terminal', width: 1126, height: 938, icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Open a shell in any remote folder and reconnect to existing sessions when tmux is available.', '在所选远端文件夹直接打开终端。服务器装有 tmux 时可恢复原有会话。') },
   { id: 'monitor', width: 872, height: 635, icon: 'monitor', name: t('Monitor', '监控'), detail: t('Check CPU, memory, disks, network, processes, listening ports, and service logs.', '查看 CPU、内存、磁盘、网络、进程、监听端口和服务日志。') },
   { id: 'docker', width: 1126, height: 938, icon: 'docker', name: 'Docker', detail: t('Inspect containers, ports, volumes, and logs, and manage Compose projects.', '查看容器、端口、卷和日志，管理 Docker Compose 项目。') },
@@ -58,16 +60,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={intro} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL('/media/desktop.webp', Astro.site)} />
+    <meta property="og:image" content={new URL('/media/workspace-tour.webp', Astro.site)} />
   </head>
   <body>
     <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
     <header><div class="wrap bar">
       <a class="brand" href={zh ? '/zh-cn/' : '/'}><img width="34" height="34" src="/brand.svg" alt="" />Arcnix</a>
       <nav aria-label={t('Main navigation', '主导航')}>
-        <a href="#downloads">{t('Downloads','下载')}</a>
         <a href="#workspace">{t('Workspace','工作台')}</a>
         <a href="#operations">{t('Operations','运维')}</a>
+        <a href="#downloads">{t('Downloads','下载')}</a>
         <a href={guide}>{t('Docs','文档')}</a>
       </nav>
       <div class="nav-tools">
@@ -76,20 +78,34 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </div>
     </div></header>
     <main id="main">
-      <section class="hero"><div class="wrap hero-inner">
+      <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
         <div class="hero-copy">
-          <h1>{t('A desktop for','通过 SSH 打开')}<br/><em>{t('SSH servers','服务器桌面')}</em></h1>
+          <a class="hero-release" href={release}>{tag}<span></span>{t('Release notes','发行说明')}</a>
+          <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
-            <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载 Arcnix')} {tag}</a>
-            <a class="button secondary" href={release}>{t('Release notes','发行说明')}</a>
+            <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载 Arcnix')}</a>
+            <a class="hero-docs" href={guide}>{t('Quick start','快速上手')}</a>
           </div>
         </div>
-        <figure class="hero-screen">
-          <img src="/media/desktop.webp" width="1126" height="938"
-            alt={t('The Arcnix server desktop with overlapping terminal and Monitor windows', 'Arcnix 服务器桌面上叠放的终端和监控窗口')}
-            fetchpriority="high" />
-        </figure>
+        <WorkspaceTour locale={locale} />
+      </div></section>
+      <section class="workspace" id="workspace"><div class="wrap section">
+        <h2>{t('Explore the workspace','看看工作台里的工具')}</h2>
+        <div class="viewer">
+          <div class="switches">
+            {views.map((view, i) => <a href={`/media/${view.id}.webp`} class:list={['switch', { selected: i === 0 }]} aria-current={i === 0 ? 'true' : undefined} data-width={view.width} data-height={view.height}>
+              <Icon name={view.icon}/><span><strong>{view.name}</strong><small>{view.detail}</small></span>
+            </a>)}
+          </div>
+          <figure><a id="screen-link" href={`/media/${views[0].id}.webp`} aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src={`/media/${views[0].id}.webp`} width={views[0].width} height={views[0].height} alt={views[0].name} loading="lazy" /></a>
+          <figcaption><span id="screen-name">{views[0].name}</span><a class="full-size" href={`/media/${views[0].id}.webp`}>{t('View full size', '查看原图')}</a></figcaption><p class="mobile-detail">{views[0].detail}</p></figure>
+        </div>
+        <p class="workspace-note">{t('On Windows, the built-in browser opens sites through the server’s SSH connection and follows the desktop theme.', 'Windows 内置浏览器通过服务器的 SSH 连接访问网页，并跟随桌面主题。')}</p>
+      </div></section>
+      <section class="ops" id="operations"><div class="wrap section">
+        <h2>{t('Day-to-day operations','日常运维')}</h2>
+        <div class="features">{operations.map(op => <article><Icon name={op.icon}/><h3>{op.title}</h3><p>{op.body}</p></article>)}</div>
       </div></section>
       <section class="downloads" id="downloads"><div class="wrap section">
         <div class="downloads-heading">
@@ -107,31 +123,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             </li>)}</ul>
           </article>)}
         </div>
+        <p class="update-note">{t('Already using Arcnix on Windows? Open Settings to check for updates.', '已经在 Windows 上使用 Arcnix？打开应用的「设置」即可检查更新。')}</p>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>
           <a href={guide}>{t('Installation instructions','安装说明')}</a>
           <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
         </div>
-      </div></section>
-      <section class="wrap section" id="workspace">
-        <div class="eyebrow"><i></i>{t('The workspace','桌面工作台')}</div>
-        <h2>{t('Inside Arcnix','看看 Arcnix 的桌面')}</h2>
-        <div class="viewer">
-          <div class="switches">
-            {views.map((view, i) => <a href={`/media/${view.id}.webp`} class:list={['switch', { selected: i === 0 }]} aria-current={i === 0 ? 'true' : undefined} data-width={view.width} data-height={view.height}>
-              <Icon name={view.icon}/><span><strong>{view.name}</strong><small>{view.detail}</small></span>
-            </a>)}
-          </div>
-          <figure><a id="screen-link" href="/media/files.webp" aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src="/media/files.webp" width={views[0].width} height={views[0].height} alt={views[0].name} loading="lazy" /></a>
-          <figcaption><span>Arcnix Desktop</span><span id="screen-name">{views[0].name}</span></figcaption></figure>
-        </div>
-        <p class="workspace-note">{t('On Windows, the built-in browser opens sites through the server’s SSH connection and follows the desktop theme.', 'Windows 内置浏览器通过服务器的 SSH 连接访问网页，并跟随桌面主题。')}</p>
-      </section>
-      <section class="ops" id="operations"><div class="wrap section">
-        <div class="eyebrow"><i></i>{t('Server operations','服务器运维')}</div>
-        <h2>{t('Beyond the terminal','终端之外的日常运维')}</h2>
-        <div class="features">{operations.map(op => <article><Icon name={op.icon}/><h3>{op.title}</h3><p>{op.body}</p></article>)}</div>
       </div></section>
     </main>
     <footer><div class="wrap bar"><a class="brand" href={zh ? '/zh-cn/' : '/'}><img src="/brand.svg" alt="" width="24" height="24"/>Arcnix</a>
@@ -142,6 +140,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       const screen = document.querySelector<HTMLImageElement>('#screen')!;
       const full = document.querySelector<HTMLAnchorElement>('#screen-link')!;
       const caption = document.querySelector<HTMLElement>('#screen-name')!;
+      const fullSize = document.querySelector<HTMLAnchorElement>('.full-size')!;
+      const detail = document.querySelector<HTMLElement>('.mobile-detail')!;
       for (const choice of choices) {
         choice.addEventListener('click', event => {
           if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
@@ -152,6 +152,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             else item.removeAttribute('aria-current');
           }
           const name = choice.querySelector('strong')!.textContent!;
+          detail.textContent = choice.querySelector('small')!.textContent;
+          fullSize.href = choice.href;
           screen.src = full.href = choice.href;
           screen.width = Number(choice.dataset.width);
           screen.height = Number(choice.dataset.height);
