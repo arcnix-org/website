@@ -6,6 +6,10 @@ The bilingual Astro site for [arcnix.org](https://arcnix.org). Arcnix desktop de
 
 Use Node.js 24 LTS and npm. Run `npm ci` and `npm run dev`. Run `npm run build` for a production build and `npm run preview` to serve it locally.
 
+Clone [arcnix-org/arcnix](https://github.com/arcnix-org/arcnix) beside this website checkout before running the dev server or build. Astro reads the Markdown in `../arcnix/docs/guide` directly. Set `ARCNIX_GUIDE_DIR` to the guide directory if your checkout is elsewhere.
+
+User documentation lives in the application repository under `docs/guide/en` and `docs/guide/zh-cn`. Give matching translations the same filename and set the title, description and navigation order in frontmatter. Each website build checks out that directory from the application’s `main` branch and renders both languages into the static site. To publish a docs-only change after it lands in the application repository, run this repository’s **Build and deploy to Cloudflare Pages** workflow on `main`.
+
 English is served at `/` and Simplified Chinese at `/zh-cn/`. Both use the same Astro page component. Product screenshots in `public/media` come from the Arcnix desktop test fixtures.
 
 ## Deployment

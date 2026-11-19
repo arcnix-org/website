@@ -8,7 +8,7 @@ const { locale } = Astro.props;
 const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
-const guide = repo + '/blob/main/' + t('README.md', 'README.zh-CN.md');
+const guide = t('/docs/', '/zh-cn/docs/');
 const version = '0.3.1';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
@@ -85,7 +85,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <p>{intro}</p>
           <div class="actions">
             <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载 Arcnix')}</a>
-            <a class="hero-docs" href={guide}>{t('Quick start','快速上手')}</a>
+            <a class="hero-docs" href={guide + 'quick-start/'}>{t('Quick start','快速上手')}</a>
           </div>
         </div>
         <WorkspaceTour locale={locale} />
@@ -127,7 +127,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>
-          <a href={guide}>{t('Installation instructions','安装说明')}</a>
+          <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
           <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
         </div>
       </div></section>

@@ -9,11 +9,21 @@ permissions:
 jobs:
   website:
     runs-on: ubuntu-latest
+    env:
+      ARCNIX_GUIDE_DIR: .docs-source/docs/guide
     concurrency:
       group: website-${{ github.ref }}
       cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v7
+      - name: Read the user guides from Arcnix
+        uses: actions/checkout@v7
+        with:
+          repository: arcnix-org/arcnix
+          ref: main
+          path: .docs-source
+          sparse-checkout: docs/guide
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -24,6 +34,11 @@ jobs:
         run: |
           test -s dist/index.html
           test -s dist/zh-cn/index.html
+          for prefix in dist dist/zh-cn; do
+            test -s "$prefix/docs/index.html"
+            test -s "$prefix/docs/quick-start/index.html"
+            test -s "$prefix/docs/install/index.html"
+          done
           test -s dist/sitemap.xml
       - name: Deploy production
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
