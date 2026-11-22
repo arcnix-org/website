@@ -10,7 +10,7 @@ order: 2
 
 ## macOS
 
-macOS 13 及以上的 Apple Silicon 电脑请选择对应压缩包。解压后将 `Arcnix.app` 移到“应用程序”并打开。当前发布包采用临时签名，尚未经过 Apple 公证。[下载 macOS 版](https://arcnix.org/zh-cn/#downloads)
+macOS 13 及以上的 Apple Silicon 电脑请选择 DMG 安装包。打开磁盘映像，将 `Arcnix.app` 拖到「应用程序」，再从「应用程序」启动。当前发布包采用临时签名，尚未经过 Apple 公证。[下载 macOS 版](https://arcnix.org/zh-cn/#downloads)
 
 ## Linux
 
@@ -18,6 +18,6 @@ macOS 13 及以上的 Apple Silicon 电脑请选择对应压缩包。解压后�
 
 ## 更新已安装的客户端
 
-在 Windows x64 上，打开**设置 → 软件更新**可检查稳定版。0.3.2 及以上版本会下载并校验便携 ZIP，待 SSH 断开、任务完成后替换程序。使用 0.3.1 或更早版本时，请用安装器或便携 ZIP 手动升级至 0.3.4。
+在 Windows x64 上，打开**设置 → 软件更新**可检查稳定版。Arcnix 会校验便携 ZIP，待 SSH 断开、任务完成后替换程序。无法在应用内更新时，可使用安装器或便携 ZIP。
 
-macOS 和 Linux 用户可下载新版对应的压缩包。官网下载区也提供各包的 SHA-256 校验文件。
+macOS 用户可下载新版 DMG，Linux 用户可按处理器架构下载新版压缩包。官网下载区也提供各包的 SHA-256 校验文件。

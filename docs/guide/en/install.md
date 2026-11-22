@@ -10,7 +10,7 @@ For a first installation, choose **Windows → Download installer**. Run the ins
 
 ## macOS
 
-Use the Apple Silicon archive on macOS 13 or later. Extract it, move `Arcnix.app` to Applications and open it. The distributed app is ad-hoc signed and has not been notarized by Apple. [Download for macOS](https://arcnix.org/#downloads)
+Use the Apple Silicon DMG on macOS 13 or later. Open the disk image, drag `Arcnix.app` to Applications, then launch it from Applications. The distributed app is ad-hoc signed and has not been notarized by Apple. [Download for macOS](https://arcnix.org/#downloads)
 
 ## Linux
 
@@ -18,6 +18,6 @@ Choose the archive for your computer’s CPU. `uname -m` reports `x86_64` for x6
 
 ## Updating
 
-On Windows x64, open **Settings → Updates** to check for stable releases. Versions 0.3.2 and later download and verify the portable ZIP, then replace the program when your SSH session and tasks are finished. If you are on 0.3.1 or earlier, use the installer or portable ZIP to upgrade to 0.3.4 manually.
+On Windows x64, open **Settings → Updates** to check for stable releases. Arcnix verifies the portable ZIP and replaces the program when your SSH session and tasks are finished. If an in-app update is unavailable, use the installer or portable ZIP.
 
-On macOS and Linux, download the archive for the new release. The downloads section also links to the SHA-256 checksums for each package.
+For macOS, download the new DMG. For Linux, download the new archive for your CPU. The downloads section also links to the SHA-256 checksums for each package.

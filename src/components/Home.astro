@@ -9,9 +9,10 @@ const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.4';
+const version = '0.3.5';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
+const releaseNotes = `${guide}release-${version.replaceAll('.', '-')}/`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
 const binary = (suffix: string) => asset(`arcnix-${tag}-${suffix}`);
 const platforms = [
@@ -20,7 +21,7 @@ const platforms = [
     { name: t('Portable ZIP', '便携版 ZIP'), suffix: 'windows-amd64.zip', type: '.zip' },
   ] },
   { name: 'macOS', detail: t('Apple Silicon · macOS 13+', 'Apple Silicon · macOS 13 及以上'), downloads: [
-    { name: 'Apple Silicon', suffix: 'macos-arm64.tar.gz', type: '.tar.gz' },
+    { name: 'Apple Silicon', suffix: 'macos-arm64.dmg', type: '.dmg' },
   ] },
   { name: 'Linux', detail: t('glibc 2.39+ · GTK 3 · WebKitGTK 4.1', 'glibc 2.39+ · GTK 3 · WebKitGTK 4.1'), downloads: [
     { name: 'x64', suffix: 'linux-amd64.tar.gz', type: '.tar.gz' },
@@ -80,7 +81,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main">
       <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
         <div class="hero-copy">
-          <a class="hero-release" href={guide + 'release-0-3-4/'}>{tag}<span></span>{t('Release notes','发行说明')}</a>
+          <a class="hero-release" href={releaseNotes}>{tag}<span></span>{t('Release notes','发行说明')}</a>
           <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
@@ -123,7 +124,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             </li>)}</ul>
           </article>)}
         </div>
-        <p class="update-note">{t('Windows x64 users on v0.3.2 or later can update in Settings. From v0.3.1 or earlier, download the installer or portable ZIP once.', 'Windows x64 用户可从 v0.3.2 及以上版本在设置中更新。使用 v0.3.1 或更早版本时，请先手动下载安装器或便携 ZIP。')}</p>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>

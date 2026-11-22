@@ -88,7 +88,6 @@ p { color: var(--soft); font-size: 1rem; line-height: 1.65; }
 .tour figcaption { padding: .75rem .65rem .45rem; }
 .tour figcaption strong { font: 560 .94rem/1.3 Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif; color: #edf7f5; }
 video::cue { color: white; background: #101a20e8; }
-.update-note { margin-top: 1rem; }
 .downloads { background: #141b1b; border-block: 1px solid var(--line); }
 .downloads-heading { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .version { border: 1px solid #476552; background: #1d2b24; color: var(--lime); padding: .45rem .65rem; border-radius: .35rem; font: .94rem/1 var(--mono); }
