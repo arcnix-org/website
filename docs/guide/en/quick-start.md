@@ -8,6 +8,10 @@ order: 1
 
 Install Arcnix on your computer. Have the server address, SSH port, username and either a password or a private key ready. A server you already reach with SSH is a good first choice. [Installation and downloads](https://arcnix.org/docs/install/)
 
+## Explore without a server
+
+On the Servers page choose **Try the local desktop**, then **Read-only mode**. Open Files and double-click a photo or PDF on your computer to try the viewers. Choose **Read-write mode** when you want to edit local files or run local terminal commands.
+
 ## Add the server
 
 1. Open **Servers** and choose **Add server**. Give the connection a name you will recognize.

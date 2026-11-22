@@ -3,6 +3,7 @@ interface Props { locale: 'en' | 'zh-CN' }
 const { locale } = Astro.props;
 const zh = locale === 'zh-CN';
 const clips = [
+  { id: 'viewers-tour', label: zh ? '图片与 PDF' : 'Images & PDFs', title: zh ? '在桌面查看照片、翻阅 PDF' : 'Browse photos and read a PDF on the desktop' },
   { id: 'player-tour', label: zh ? '视频播放' : 'Video player', title: zh ? '打开远程视频并跳播' : 'Open and seek through a remote video' },
   { id: 'docker-tour', label: 'Docker', title: zh ? '启动容器，查看日志、卷和端口' : 'Start a container and inspect logs, volumes and ports' },
   { id: 'monitor-tour', label: zh ? '服务器监控' : 'Monitor', title: zh ? '从网络概览查看服务日志' : 'Explore network activity and service logs' },
@@ -10,7 +11,7 @@ const clips = [
 ];
 const first = clips[0];
 ---
-<figure class="tour" aria-labelledby="tour-title">
+<figure id="walkthrough" class="tour" aria-labelledby="tour-title">
   <nav class="tour-choices" aria-label={zh ? '选择操作实录' : 'Choose a walkthrough'}>
     {clips.map((clip, i) => <a href={`/media/${clip.id}.mp4`} aria-current={i === 0 ? 'true' : undefined}
       data-title={clip.title} data-base={`/media/${clip.id}`}>{clip.label}</a>)}

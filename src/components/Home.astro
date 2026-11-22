@@ -9,7 +9,7 @@ const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.1';
+const version = '0.3.4';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
@@ -31,10 +31,10 @@ const title = t('Arcnix — A desktop workspace for SSH servers', 'Arcnix — �
 const intro = t('Connect over SSH to browse remote files, edit code and open a shell in the same workspace.', '通过 SSH 连接，在同一张桌面上浏览远程文件、编辑代码、打开终端。');
 const views = [
   { id: 'code', width: 1440, height: 900, icon: 'code', name: t('Code editor', 'Code 编辑器'), detail: t('Edit a remote file, save it over SFTP and read the Markdown preview alongside your changes.', '直接编辑远程文件，通过 SFTP 保存，在旁边查看 Markdown 的渲染效果。') },
-  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Browse remote directories and open text files in Code. Search across files or preview Markdown beside the editor.', '浏览远端目录，在 Code 中打开文本文件。可跨文件搜索，也可在编辑器旁实时预览 Markdown。') },
+  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Choose a list or icon view for each folder. Open images, PDFs and text files directly from the file list.', '按文件夹保存列表或图标视图，直接从文件列表打开图片、PDF 和文本。') },
   { id: 'terminal', width: 1126, height: 938, icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Open a shell in any remote folder and reconnect to existing sessions when tmux is available.', '在所选远端文件夹直接打开终端。服务器装有 tmux 时可恢复原有会话。') },
   { id: 'monitor', width: 872, height: 635, icon: 'monitor', name: t('Monitor', '监控'), detail: t('Check CPU, memory, disks, network, processes, listening ports, and service logs.', '查看 CPU、内存、磁盘、网络、进程、监听端口和服务日志。') },
-  { id: 'docker-tour', width: 1440, height: 900, icon: 'docker', name: 'Docker', detail: t('Browse containers and volumes, check port mappings and read logs. The screenshot shows the next interface.', '查看容器与卷、检查端口映射、读取容器日志。图中为开发版界面。') },
+  { id: 'docker-tour', width: 1440, height: 900, icon: 'docker', name: 'Docker', detail: t('Browse containers and volumes, check port mappings and read logs. Select a container to inspect its mounts and recent output.', '查看容器与卷、检查端口映射、读取容器日志。选择容器可查看挂载和最近的输出。') },
 ] as const;
 const operations = [
   { icon: 'code', title: t('Install server apps', '安装服务器应用'), body: t('Choose from system packages, Snap, or Docker Compose based on what the server supports.', '在应用商店里选择当前服务器支持的安装方式，包括系统包、Snap 和 Docker Compose。') },
@@ -60,7 +60,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={intro} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL('/media/player-tour.webp', Astro.site)} />
+    <meta property="og:image" content={new URL('/media/viewers-tour.webp', Astro.site)} />
   </head>
   <body>
     <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
@@ -80,7 +80,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main">
       <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
         <div class="hero-copy">
-          <a class="hero-release" href={release}>{tag}<span></span>{t('Release notes','发行说明')}</a>
+          <a class="hero-release" href={guide + 'release-0-3-4/'}>{tag}<span></span>{t('Release notes','发行说明')}</a>
           <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
@@ -123,7 +123,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             </li>)}</ul>
           </article>)}
         </div>
-        <p class="update-note">{t('On Windows, upgrading from v0.3.1 to the next release will require the installer or portable ZIP once. Later releases will update in-app from the ZIP.', 'Windows 用户从 v0.3.1 升到下一版时，需手动下载一次安装器或便携 ZIP。此后即可在应用内通过便携 ZIP 更新。')}</p>
+        <p class="update-note">{t('Windows x64 users on v0.3.2 or later can update in Settings. From v0.3.1 or earlier, download the installer or portable ZIP once.', 'Windows x64 用户可从 v0.3.2 及以上版本在设置中更新。使用 v0.3.1 或更早版本时，请先手动下载安装器或便携 ZIP。')}</p>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>

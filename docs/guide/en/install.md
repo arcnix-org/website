@@ -18,6 +18,6 @@ Choose the archive for your computer’s CPU. `uname -m` reports `x86_64` for x6
 
 ## Updating
 
-On Windows x64, open **Settings → Updates** to check for stable releases. The change to ZIP-based updates takes effect after v0.3.1. If you are running v0.3.1 or earlier, install the first ZIP-aware release manually once. That client can then download the portable ZIP, verify it and replace the program when your SSH session and tasks are finished.
+On Windows x64, open **Settings → Updates** to check for stable releases. Versions 0.3.2 and later download and verify the portable ZIP, then replace the program when your SSH session and tasks are finished. If you are on 0.3.1 or earlier, use the installer or portable ZIP to upgrade to 0.3.4 manually.
 
 On macOS and Linux, download the archive for the new release. The downloads section also links to the SHA-256 checksums for each package.
