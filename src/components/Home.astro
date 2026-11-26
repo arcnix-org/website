@@ -9,7 +9,7 @@ const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.7';
+const version = '0.3.8';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
@@ -80,7 +80,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main">
       <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
         <div class="hero-copy">
-          <a class="hero-release" href={release}>{tag}<span></span>{t('Release notes','发行说明')}</a>
+          <a class="hero-release" href={guide + `release-${version.replaceAll('.', '-')}/`}>{tag}<span></span>{t('Release notes','发行说明')}</a>
           <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
