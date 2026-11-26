@@ -9,10 +9,9 @@ const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.5';
+const version = '0.3.7';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
-const releaseNotes = `${guide}release-${version.replaceAll('.', '-')}/`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
 const binary = (suffix: string) => asset(`arcnix-${tag}-${suffix}`);
 const platforms = [
@@ -81,7 +80,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main">
       <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
         <div class="hero-copy">
-          <a class="hero-release" href={releaseNotes}>{tag}<span></span>{t('Release notes','发行说明')}</a>
+          <a class="hero-release" href={release}>{tag}<span></span>{t('Release notes','发行说明')}</a>
           <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
@@ -126,7 +125,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </div>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
-          <a href={`https://crates.io/crates/arcnix/${version}`}>crates.io</a>
+          <a href="https://crates.io/crates/arcnix">crates.io</a>
           <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
           <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
         </div>
