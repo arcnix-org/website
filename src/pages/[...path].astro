@@ -8,10 +8,11 @@ import '../styles/docs.css';
 export const getStaticPaths = guideRoutes;
 const { locale, slug, topics, article } = Astro.props;
 const zh = locale === 'zh-cn';
+const brand = zh ? '阿牛桌面' : 'Arcnix';
 const home = zh ? '/zh-cn/' : '/';
 const docs = zh ? '使用文档' : 'Documentation';
 const title = article?.data.title ?? docs;
-const description = article?.data.description ?? (zh ? '从第一次 SSH 连接开始，了解 Arcnix 的桌面工具与服务器管理功能。' : 'Start with an SSH connection, then explore the desktop tools and server operations.');
+const description = article?.data.description ?? (zh ? '从第一次 SSH 连接开始，了解阿牛桌面的工具与服务器管理功能。' : 'Start with an SSH connection, then explore the desktop tools and server operations.');
 const rendered = article ? await render(article) : undefined;
 const Content = rendered?.Content;
 const alternate = zh ? 'en' : 'zh-cn';
@@ -21,7 +22,7 @@ const alternate = zh ? 'en' : 'zh-cn';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} · Arcnix</title>
+    <title>{title} · {brand}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={new URL(guidePath(locale, slug), Astro.site)} />
@@ -31,7 +32,7 @@ const alternate = zh ? 'en' : 'zh-cn';
   <body class="guide-shell">
     <a class="skip" href="#main">{zh ? '跳到正文' : 'Skip to content'}</a>
     <header><div class="wrap bar">
-      <a class="brand" href={home}><img width="34" height="34" src="/brand.svg" alt="" />Arcnix</a>
+      <a class="brand" href={home}><img width="34" height="34" src="/brand.svg" alt="" />{brand}</a>
       <a class="docs-home" href={guidePath(locale)}>{docs}</a>
       <div class="nav-tools">
         <a href={home + '#downloads'}>{zh ? '下载' : 'Downloads'}</a>

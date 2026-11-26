@@ -7,6 +7,7 @@ interface Props { locale: 'en' | 'zh-CN' }
 const { locale } = Astro.props;
 const zh = locale === 'zh-CN';
 const t = (en: string, cn: string) => zh ? cn : en;
+const brand = t('Arcnix', '阿牛桌面');
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
 const version = '0.3.8';
@@ -27,7 +28,7 @@ const platforms = [
     { name: 'ARM64', suffix: 'linux-arm64.tar.gz', type: '.tar.gz' },
   ] },
 ];
-const title = t('Arcnix — A desktop workspace for SSH servers', 'Arcnix — 通过 SSH 管理服务器的桌面工作台');
+const title = t('Arcnix — A desktop workspace for SSH servers', '阿牛桌面（Arcnix）— 通过 SSH 管理服务器的桌面工作台');
 const intro = t('Connect over SSH to browse remote files, edit code and open a shell in the same workspace.', '通过 SSH 连接，在同一张桌面上浏览远程文件、编辑代码、打开终端。');
 const views = [
   { id: 'code', width: 1440, height: 900, icon: 'code', name: t('Code editor', 'Code 编辑器'), detail: t('Edit a remote file, save it over SFTP and read the Markdown preview alongside your changes.', '直接编辑远程文件，通过 SFTP 保存，在旁边查看 Markdown 的渲染效果。') },
@@ -65,7 +66,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <body>
     <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
     <header><div class="wrap bar">
-      <a class="brand" href={zh ? '/zh-cn/' : '/'}><img width="34" height="34" src="/brand.svg" alt="" />Arcnix</a>
+      <a class="brand" href={zh ? '/zh-cn/' : '/'}><img width="34" height="34" src="/brand.svg" alt="" />{brand}</a>
       <nav aria-label={t('Main navigation', '主导航')}>
         <a href="#workspace">{t('Workspace','工作台')}</a>
         <a href="#operations">{t('Operations','运维')}</a>
@@ -74,7 +75,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </nav>
       <div class="nav-tools">
         <a class="language" lang={zh ? 'en' : 'zh-CN'} hreflang={zh ? 'en' : 'zh-CN'} href={zh ? '/' : '/zh-cn/'}><Icon name="globe" />{t('中文','English')}</a>
-        <a class="git" href={repo} aria-label={t('Arcnix on GitHub','Arcnix GitHub 仓库')}><Icon name="github" /><span>GitHub</span></a>
+        <a class="git" href={repo} aria-label={t('Arcnix on GitHub','阿牛桌面的 GitHub 仓库')}><Icon name="github" /><span>GitHub</span></a>
       </div>
     </div></header>
     <main id="main">
@@ -84,7 +85,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
           <p>{intro}</p>
           <div class="actions">
-            <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载 Arcnix')}</a>
+            <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载阿牛桌面')}</a>
             <a class="hero-docs" href={guide + 'quick-start/'}>{t('Quick start','快速上手')}</a>
           </div>
         </div>
@@ -109,7 +110,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </div></section>
       <section class="downloads" id="downloads"><div class="wrap section">
         <div class="downloads-heading">
-          <h2>{t('Download Arcnix','下载 Arcnix')}</h2>
+          <h2>{t('Download Arcnix','下载阿牛桌面')}</h2>
           <a class="version" href={release}>{tag}</a>
         </div>
         <div class="download-grid">
@@ -131,7 +132,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </div>
       </div></section>
     </main>
-    <footer><div class="wrap bar"><a class="brand" href={zh ? '/zh-cn/' : '/'}><img src="/brand.svg" alt="" width="24" height="24"/>Arcnix</a>
+    <footer><div class="wrap bar"><a class="brand" href={zh ? '/zh-cn/' : '/'}><img src="/brand.svg" alt="" width="24" height="24"/>{brand}</a>
       <div><a href={repo}>GitHub</a><a href={repo + '/issues'}>{t('Issues','问题反馈')}</a><a href={repo + '/blob/main/LICENSE'}>Apache 2.0</a></div>
     </div></footer>
     <script>

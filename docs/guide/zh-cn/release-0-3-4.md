@@ -1,5 +1,5 @@
 ---
-title: "Arcnix 0.3.4 更新说明"
+title: "阿牛桌面 0.3.4 更新说明"
 description: "新增图片查看器、PDF 阅读器和按文件夹保存的视图，可先在本机桌面体验。"
 order: 7
 ---
@@ -16,4 +16,4 @@ order: 7
 
 Docker 可按 Compose 项目归组容器，并查看挂载、日志和统计。应用中心区分系统服务和容器安装。桌面依赖已更新至 Sapid 0.9.1 和 Glory 0.9.1。
 
-发布页提供 Windows x64、Apple Silicon 和 Linux x64、ARM64 安装包及其校验值。[下载 Arcnix v0.3.4](https://github.com/arcnix-org/arcnix/releases/tag/v0.3.4)
+发布页提供 Windows x64、Apple Silicon 和 Linux x64、ARM64 安装包及其校验值。[下载阿牛桌面 v0.3.4](https://github.com/arcnix-org/arcnix/releases/tag/v0.3.4)

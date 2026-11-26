@@ -6,7 +6,7 @@ order: 2
 
 ## Windows x64
 
-首次安装选 **Windows → 下载安装器**。用当前 Windows 账户运行安装器，之后从开始菜单打开 Arcnix。需要便携使用时，选**便携版 ZIP**，完整解压到可写目录，再运行 `arcnix.exe`。两种方式都需要 WebView2 Runtime。[下载 Windows 版](https://arcnix.org/zh-cn/#downloads)
+首次安装选 **Windows → 下载安装器**。用当前 Windows 账户运行安装器，之后从开始菜单打开 `Arcnix`。需要便携使用时，选**便携版 ZIP**，完整解压到可写目录，再运行 `arcnix.exe`。两种方式都需要 WebView2 Runtime。[下载 Windows 版](https://arcnix.org/zh-cn/#downloads)
 
 ## macOS
 
@@ -18,6 +18,6 @@ macOS 13 及以上的 Apple Silicon 电脑请选择 DMG 安装包。打开磁盘
 
 ## 更新已安装的客户端
 
-在 Windows x64 上，打开**设置 → 软件更新**可检查稳定版。Arcnix 会校验便携 ZIP，待 SSH 断开、任务完成后替换程序。无法在应用内更新时，可使用安装器或便携 ZIP。
+在 Windows x64 上，打开**设置 → 软件更新**可检查稳定版。阿牛桌面会校验便携 ZIP，待 SSH 断开、任务完成后替换程序。无法在应用内更新时，可使用安装器或便携 ZIP。
 
 macOS 用户可下载新版 DMG，Linux 用户可按处理器架构下载新版压缩包。官网下载区也提供各包的 SHA-256 校验文件。
