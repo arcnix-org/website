@@ -10,7 +10,7 @@ const t = (en: string, cn: string) => zh ? cn : en;
 const brand = t('Arcnix', '阿牛桌面');
 const repo = 'https://github.com/arcnix-org/arcnix';
 const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.8';
+const version = '0.3.11';
 const tag = `v${version}`;
 const release = `${repo}/releases/tag/${tag}`;
 const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
@@ -102,7 +102,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <figure><a id="screen-link" href={`/media/${views[0].id}.webp`} aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src={`/media/${views[0].id}.webp`} width={views[0].width} height={views[0].height} alt={views[0].name} loading="lazy" /></a>
           <figcaption><span id="screen-name">{views[0].name}</span><a class="full-size" href={`/media/${views[0].id}.webp`}>{t('View full size', '查看原图')}</a></figcaption><p class="mobile-detail">{views[0].detail}</p></figure>
         </div>
-        <p class="workspace-note">{t('On Windows, the built-in browser opens sites through the server’s SSH connection and follows the desktop theme.', 'Windows 内置浏览器通过服务器的 SSH 连接访问网页，并跟随桌面主题。')}</p>
+        <p class="workspace-note">{t('On Windows and Linux, the built-in browser can open sites through the server’s SSH connection, including services listening on the server’s loopback address.', '在 Windows 和 Linux 上，内置浏览器可通过服务器的 SSH 连接访问网页，包括仅监听服务器回环地址的服务。')}</p>
       </div></section>
       <section class="ops" id="operations"><div class="wrap section">
         <h2>{t('Day-to-day operations','日常运维')}</h2>
@@ -128,6 +128,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
           <a href="https://crates.io/crates/arcnix">crates.io</a>
           <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
+          <a href={guide + 'release-' + version.replaceAll('.', '-') + '/'}>{t('Release notes', '本版更新说明')}</a>
           <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
         </div>
       </div></section>
