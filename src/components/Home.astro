@@ -126,7 +126,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </div>
         <div class="release-links">
           <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
-          <a href="https://crates.io/crates/arcnix">crates.io</a>
           <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
           <a href={guide + 'release-' + version.replaceAll('.', '-') + '/'}>{t('Release notes', '本版更新说明')}</a>
           <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
