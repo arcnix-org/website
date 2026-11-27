@@ -20,6 +20,8 @@ Double-click a PDF to open **PDF Reader**. Enter a page number and press **Enter
 
 Open **Transfer files** to see local and remote directories side by side. Navigate to the destination, then drag a file or folder from the other pane. Expand a transfer to see individual files and their progress. If a destination file already exists, review the conflict choice before continuing.
 
+[Watch an upload and download](/videos/file-transfer/)
+
 ## Edit a remote file
 
 In **File explorer**, right-click a UTF-8 text file and choose **Open in Code**. Use **Ctrl+S** to save through SFTP. If the server copy changed while you were editing, review it before saving again. Files larger than 1 MiB open in a read-only, chunked preview.
@@ -32,4 +34,4 @@ Right-click a folder and choose **Terminal here** to start a shell in that remot
 
 ## Play a remote video
 
-On Windows x64, double-click an MP4 or MKV in the remote file list, or choose **Play** from its context menu. The player reads ranges over SFTP as you play or seek. WebView2 plays MP4 and the bundled libmpv runtime handles MKV. [Watch the player and editor demos](https://arcnix.org/)
+On Windows x64, double-click an MP4 or MKV in the remote file list, or choose **Play** from its context menu. The player reads ranges over SFTP as you play or seek. WebView2 plays MP4 and the bundled libmpv runtime handles MKV. [Watch the video player](/videos/video-player/) · [Watch the editor](/videos/remote-editor/)

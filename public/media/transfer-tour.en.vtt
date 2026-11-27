@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.400
+Open the Transfer files workspace.
+
+00:00:02.400 --> 00:00:05.400 line:59%
+Select release-bundle.zip on the left and click Upload.
+
+00:00:05.400 --> 00:00:08.400 line:59%
+Check the upload progress and pause it in the queue.
+
+00:00:08.400 --> 00:00:12.100 line:59%
+Resume the upload. The file appears on the server when it completes.
+
+00:00:12.100 --> 00:00:16.000 line:59%
+Select server-logs.zip on the right and click Download.
+
+00:00:16.000 --> 00:00:18.300 line:59%
+Follow the download progress in the transfer queue.
+
+00:00:18.300 --> 00:00:21.160 line:59%
+Both transfers are complete. The downloaded file appears on the left.

@@ -1,0 +1,51 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import Icon from './Icon.astro';
+import { tag, repo, releaseGuide, sitePath, translate, type Locale } from '../lib/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translate(locale);
+const guide = sitePath(locale, 'docs/');
+const release = `${repo}/releases/tag/${tag}`;
+const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
+const binary = (suffix: string) => asset(`arcnix-${tag}-${suffix}`);
+const platforms = [
+  { name: 'Windows', detail: t('x64 · WebView2 Runtime', 'x64 · 需要 WebView2'), downloads: [
+    { name: t('Download installer', '下载安装器'), suffix: 'windows-amd64-setup.exe', type: '.exe' },
+    { name: t('Portable ZIP', '便携版 ZIP'), suffix: 'windows-amd64.zip', type: '.zip' },
+  ] },
+  { name: 'macOS', detail: t('Apple Silicon · macOS 13+', 'Apple Silicon · macOS 13 及以上'), downloads: [
+    { name: 'Apple Silicon', suffix: 'macos-arm64.dmg', type: '.dmg' },
+  ] },
+  { name: 'Linux', detail: t('glibc 2.39+ · GTK 3 · WebKitGTK 4.1', 'glibc 2.39+ · GTK 3 · WebKitGTK 4.1'), downloads: [
+    { name: 'x64', suffix: 'linux-amd64.tar.gz', type: '.tar.gz' },
+    { name: 'ARM64', suffix: 'linux-arm64.tar.gz', type: '.tar.gz' },
+  ] },
+];
+---
+<SiteLayout locale={locale} title={t('Downloads', '下载')} description={t('Get the latest stable Arcnix release for Windows, macOS or Linux and verify your download.', '下载适用于 Windows、macOS 和 Linux 的最新稳定版，并核对文件校验值。')}>
+  <section class="downloads" id="downloads"><div class="wrap section">
+    <div class="downloads-heading">
+      <h1>{t('Download Arcnix','下载阿牛桌面')}</h1>
+      <a class="version" href={release}>{tag}</a>
+    </div>
+    <p class="page-lead">{t('Choose the package for your computer.', '选择适合本机系统和处理器的安装包。')}</p>
+    <div class="download-grid">
+      {platforms.map((platform, index) => <article id={platform.name.toLowerCase()} class:list={['platform', { 'platform-main': index === 0 }]}>
+        <h2>{platform.name}</h2>
+        <p>{platform.detail}</p>
+        <ul>{platform.downloads.map((download, downloadIndex) => <li>
+          <a class:list={['platform-download', { 'featured-download': index === 0 && downloadIndex === 0 }]} href={binary(download.suffix)}>
+            <Icon name="download" /><span>{download.name}</span><small>{download.type}</small>
+          </a>
+        </li>)}</ul>
+      </article>)}
+    </div>
+    <div class="release-links">
+      <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
+      <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
+      <a href={sitePath(locale, releaseGuide)}>{t('Release notes', '本版更新说明')}</a>
+      <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
+    </div>
+  </div></section>
+</SiteLayout>

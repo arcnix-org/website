@@ -16,8 +16,10 @@ order: 10
 
 打开**设置 → 日志设置**，在**本次会话记录**中可查看最近的连接、文件传输等操作。在 Windows 上，即使关闭自动保存，也可以选择**导出本次记录**保存一份副本。要在退出后继续查看新记录，开启**自动保存日志到本机**，然后选择保存文件夹、单个文件大小上限和保留的旧日志文件数。点击**打开本地日志**即可打开当前的 `arcnix.log`。
 
+[日志设置指南](/zh-cn/docs/logging/) · [SSH 浏览器指南](/zh-cn/docs/ssh-browser/)
+
 ## 自 0.3.8 以来的其他变化
 
 文件管理器新增返回上一级目录按钮，图标视图中的长文件名可换行显示。终端支持输入法提交文字。本版还修复了 Linux 桌面窗口空白、深色主题下文件大小复选框难以辨认，以及 Docker 镜像更新检测的问题。从源码构建时使用 Rust 1.100.0。
 
-[下载阿牛桌面 0.3.11](/zh-cn/#downloads) · [在 GitHub 查看完整更新记录](https://github.com/arcnix-org/arcnix/blob/v0.3.11/CHANGELOG.md)
+[下载阿牛桌面 0.3.11](/zh-cn/downloads/) · [在 GitHub 查看完整更新记录](https://github.com/arcnix-org/arcnix/blob/v0.3.11/CHANGELOG.md)

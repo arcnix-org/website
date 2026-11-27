@@ -1,0 +1,59 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import Icon from './Icon.astro';
+import { sitePath, translate, type Locale } from '../lib/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translate(locale);
+const guide = sitePath(locale, 'docs/');
+const views = [
+  { id: 'code', width: 1440, height: 900, icon: 'code', name: t('Code editor', 'Code 编辑器'), detail: t('Edit a remote file, save it over SFTP and read the Markdown preview alongside your changes.', '直接编辑远程文件，通过 SFTP 保存，在旁边查看 Markdown 的渲染效果。') },
+  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Choose a list or icon view for each folder. Open images, PDFs and text files directly from the file list.', '按文件夹保存列表或图标视图，直接从文件列表打开图片、PDF 和文本。') },
+  { id: 'terminal', width: 1126, height: 938, icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Open a shell in any remote folder and reconnect to existing sessions when tmux is available.', '在所选远端文件夹直接打开终端。服务器装有 tmux 时可恢复原有会话。') },
+  { id: 'monitor', width: 872, height: 635, icon: 'monitor', name: t('Monitor', '监控'), detail: t('Check CPU, memory, disks, network, processes, listening ports, and service logs.', '查看 CPU、内存、磁盘、网络、进程、监听端口和服务日志。') },
+  { id: 'docker-tour', width: 1440, height: 900, icon: 'docker', name: 'Docker', detail: t('Browse containers and volumes, check port mappings and read logs. Select a container to inspect its mounts and recent output.', '查看容器与卷、检查端口映射、读取容器日志。选择容器可查看挂载和最近的输出。') },
+] as const;
+---
+<SiteLayout locale={locale} title={t('Server workspace', '服务器工作台')} description={t('Explore Files, Code, the terminal and the SSH browser.', '了解文件管理器、Code 编辑器、终端和 SSH 浏览器。')} image="/media/code.webp">
+  <section class="workspace" id="workspace"><div class="wrap section">
+    <h1>{t('The server workspace','服务器工作台')}</h1>
+    <p class="page-lead">{t('Choose a tool to see it on a connected server desktop.', '选择一个工具，看看它在服务器桌面上的实际界面。')}</p>
+    <div class="viewer">
+      <div class="switches">
+        {views.map((view, i) => <a href={`/media/${view.id}.webp`} class:list={['switch', { selected: i === 0 }]} aria-current={i === 0 ? 'true' : undefined} data-width={view.width} data-height={view.height}>
+          <Icon name={view.icon}/><span><strong>{view.name}</strong><small>{view.detail}</small></span>
+        </a>)}
+      </div>
+      <figure><a id="screen-link" href={`/media/${views[0].id}.webp`} aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src={`/media/${views[0].id}.webp`} width={views[0].width} height={views[0].height} alt={views[0].name} loading="lazy" /></a>
+      <figcaption><span id="screen-name">{views[0].name}</span><a class="full-size" href={`/media/${views[0].id}.webp`}>{t('View full size', '查看原图')}</a></figcaption><p class="mobile-detail">{views[0].detail}</p></figure>
+    </div>
+    <p class="workspace-note">{t('On Windows and Linux, the built-in browser can open sites through the server’s SSH connection, including services listening on the server’s loopback address.', '在 Windows 和 Linux 上，内置浏览器可通过服务器的 SSH 连接访问网页，包括仅监听服务器回环地址的服务。')} <a class="inline-link" href={guide + 'ssh-browser/'}>{t('Use the SSH browser', '使用 SSH 浏览器')} →</a></p>
+    <div class="page-links"><a href={guide+'workspace/'}>{t('Files, editor and terminal','文件、编辑器和终端')} →</a><a href={sitePath(locale,'videos/file-transfer/')}>{t('Watch an SFTP transfer','观看 SFTP 传输实录')} →</a></div>
+  </div></section>
+    <script>
+      const choices = document.querySelectorAll<HTMLAnchorElement>('.switch');
+      const screen = document.querySelector<HTMLImageElement>('#screen')!;
+      const full = document.querySelector<HTMLAnchorElement>('#screen-link')!;
+      const caption = document.querySelector<HTMLElement>('#screen-name')!;
+      const fullSize = document.querySelector<HTMLAnchorElement>('.full-size')!;
+      const detail = document.querySelector<HTMLElement>('.mobile-detail')!;
+      for (const choice of choices) {
+        choice.addEventListener('click', event => {
+          if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+          event.preventDefault();
+          for (const item of choices) {
+            item.classList.toggle('selected', item === choice);
+            if (item === choice) item.setAttribute('aria-current', 'true');
+            else item.removeAttribute('aria-current');
+          }
+          const name = choice.querySelector('strong')!.textContent!;
+          detail.textContent = choice.querySelector('small')!.textContent;
+          fullSize.href = choice.href;
+          screen.src = full.href = choice.href;
+          screen.width = Number(choice.dataset.width);
+          screen.height = Number(choice.dataset.height);
+          screen.alt = caption.textContent = name;
+        });
+      }
+    </script>
+</SiteLayout>

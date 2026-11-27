@@ -1,0 +1,44 @@
+---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import SiteLayout from './SiteLayout.astro';
+import { sitePath, translate, type Locale } from '../lib/site';
+import { videos, type Video } from '../lib/videos';
+interface Props { locale: Locale; clip?: Video }
+const { locale, clip } = Astro.props;
+const t = translate(locale);
+const all = videos(locale);
+const index = sitePath(locale, 'videos/');
+const lang = t('en', 'zh-CN');
+const title = clip?.title ?? t('Video walkthroughs', '操作实录');
+const description = clip?.description ?? t('Watch short, captioned recordings of everyday tasks in the Arcnix desktop.', '观看阿牛桌面的实际操作过程。每段短片都有中英文字幕和文字步骤。');
+const base = clip ? '/media/'+clip.media : '';
+const transcript = clip ? readFileSync(resolve('public/media', clip.media+'.'+lang+'.vtt'), 'utf8')
+  .trim().split(/\r?\n\s*\r?\n/).slice(1).map(block => {
+    const [cue, ...lines] = block.split(/\r?\n/);
+    return { time: cue.slice(3, 8), words: lines.join(' ') };
+  }) : [];
+const related = clip ? all.filter(item => item.slug !== clip.slug).sort((a,b) => Number(b.guide === clip.guide) - Number(a.guide === clip.guide)).slice(0,2) : [];
+---
+<SiteLayout locale={locale} title={title} description={description} image={clip ? base+'.webp' : '/media/transfer-tour.webp'}>
+  <div class="wrap section">
+    {clip && <a class="back-link" href={index}>← {t('All videos','全部实录')}</a>}
+    <h1>{title}</h1><p class="page-lead">{description}</p>
+    {clip ? <div class="film-layout">
+      <div><video controls playsinline preload="none" poster={base+'.webp'} aria-label={title} width={clip.media === 'logging-tour' ? 1280 : 1440} height={clip.media === 'logging-tour' ? 840 : 900}>
+        <source src={base+'.mp4'} type="video/mp4" />
+        <track kind="captions" srclang="en" label="English" src={base+'.en.vtt'} default={locale === 'en'} />
+        <track kind="captions" srclang="zh-CN" label="简体中文" src={base+'.zh-CN.vtt'} default={locale === 'zh-cn'} />
+      </video>
+      <div class="page-links"><a href={sitePath(locale,'docs/'+clip.guide+'/')}>{t('Read the guide','阅读操作指南')} →</a><a href={base+'.mp4'}>{t('Open MP4','打开 MP4')}</a></div>
+      </div>
+      <aside class="film-notes"><h2>{t('In this video','操作步骤')}</h2>
+        <ol>{transcript.map(cue => <li><span class="cue-time">{cue.time}</span><span>{cue.words}</span></li>)}</ol>
+        <h2>{t('More videos','相关实录')}</h2>{related.map(item => <a href={index+item.slug+'/'}>{item.title} →</a>)}
+      </aside>
+    </div> : <div class="film-grid">{all.map(item => <a class="media-card" href={index+item.slug+'/'}>
+      <div class="media-thumb"><img src={'/media/'+item.media+'.webp'} alt="" loading="lazy" width="1440" height="900" /><span>{item.duration}</span></div>
+      <h2>{item.title}</h2><p>{item.description}</p>
+    </a>)}</div>}
+  </div>
+</SiteLayout>

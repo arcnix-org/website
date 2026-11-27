@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+In Settings → Logging, session activity shows actions from this session.
+
+00:00:04.000 --> 00:00:08.000
+Turn on automatic saving to keep future entries in arcnix.log.
+
+00:00:08.000 --> 00:00:12.000
+Set the maximum size per file to 50 MiB.
+
+00:00:12.000 --> 00:00:16.000
+Keep five old log files when the current file fills up.
+
+00:00:16.000 --> 00:00:19.000
+Use Open local log to read the current file.

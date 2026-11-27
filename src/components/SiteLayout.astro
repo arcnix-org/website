@@ -1,0 +1,52 @@
+---
+import Icon from './Icon.astro';
+import { repo, sections, sectionNames, sitePath, translate, type Locale } from '../lib/site';
+import '../styles/site.css';
+
+interface Props { locale: Locale; title: string; description: string; image?: string; bodyClass?: string }
+const { locale, title, description, image = '/media/viewers-tour.webp', bodyClass } = Astro.props;
+const t = translate(locale);
+const language = t('en', 'zh-CN');
+const other = locale === 'en' ? 'zh-cn' : 'en';
+const brand = t('Arcnix', '阿牛桌面');
+const path = Astro.url.pathname.slice(sitePath(locale).length);
+const canonical = new URL(sitePath(locale, path), Astro.site);
+const names = sectionNames(locale);
+---
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101516" />
+    <title>{title} · {brand}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(sitePath('en', path), Astro.site)} />
+    <link rel="alternate" hreflang="zh-CN" href={new URL(sitePath('zh-cn', path), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(sitePath('en', path), Astro.site)} />
+    <meta property="og:title" content={title + ' · ' + brand} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
+    <header><div class="wrap bar">
+      <a class="brand" href={sitePath(locale)} aria-current={!path ? 'page' : undefined}><img width="32" height="32" src="/brand.svg" alt="" />{brand}</a>
+      <nav aria-label={t('Main navigation', '主导航')}>{sections.map(section =>
+        <a href={sitePath(locale, section + '/')} aria-current={path === section + '/' ? 'page' : path.startsWith(section + '/') ? 'location' : undefined}>{names[section]}</a>)}</nav>
+      <div class="nav-tools">
+        <a class="language" href={sitePath(other, path)} hreflang={t('zh-CN', 'en')} lang={t('zh-CN', 'en')}><Icon name="globe" />{t('中文','English')}</a>
+        <a class="git" href={repo} aria-label={t('Arcnix on GitHub','阿牛桌面的 GitHub 仓库')}><Icon name="github"/><span>GitHub</span></a>
+      </div>
+    </div></header>
+    <main id="main"><slot /></main>
+    <footer><div class="wrap bar">
+      <a class="brand" href={sitePath(locale)}><img src="/brand.svg" alt="" width="24" height="24" />{brand}</a>
+      <div><a href={repo}>GitHub</a><a href={repo+'/issues'}>{t('Issues', '问题反馈')}</a><a href={repo+'/blob/main/LICENSE'}>Apache 2.0</a></div>
+    </div></footer>
+  </body>
+</html>
