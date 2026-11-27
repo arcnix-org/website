@@ -23,16 +23,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Verify both locales
-        run: |
-          test -s dist/index.html
-          test -s dist/zh-cn/index.html
-          for prefix in dist dist/zh-cn; do
-            test -s "$prefix/docs/index.html"
-            test -s "$prefix/docs/quick-start/index.html"
-            test -s "$prefix/docs/install/index.html"
-          done
-          test -s dist/sitemap.xml
+      - name: Verify generated pages, translations and media
+        run: python3 tools/check_site.py
       - name: Deploy production
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:

@@ -1,0 +1,42 @@
+---
+import { render } from 'astro:content';
+import { guidePath, type guideRoutes } from '../lib/guides';
+import { translate } from '../lib/site';
+import SiteLayout from './SiteLayout.astro';
+import '../styles/docs.css';
+type Props = Awaited<ReturnType<typeof guideRoutes>>[number]['props'];
+const { locale, slug, topics, article } = Astro.props;
+const t = translate(locale);
+const docs = t('Documentation', '使用文档');
+const title = article?.data.title ?? docs;
+const description = article?.data.description ?? t('Choose a guide for your first connection, a task on your server, or a change in a release.', '从首次连接开始，按任务查找操作指南，也可以按版本查阅更新说明。');
+const rendered = article ? await render(article) : undefined;
+const Content = rendered?.Content;
+const groups = [
+  { title: t('Getting started','开始使用'), items: topics.filter(item => ['install','quick-start'].includes(item.slug)) },
+  { title: t('Using Arcnix','操作指南'), items: topics.filter(item => !['install','quick-start'].includes(item.slug) && !item.slug.startsWith('release-')) },
+  { title: t('Release notes','版本更新'), items: topics.filter(item => item.slug.startsWith('release-')).reverse() },
+];
+---
+<SiteLayout locale={locale} title={title} description={description} bodyClass="guide-shell">
+  <div class:list={['wrap', article ? 'doc-layout' : 'doc-index']}>
+    {article && <aside>
+      <details class="doc-mobile-nav"><summary>{t('Browse guides','文档目录')}</summary><nav aria-label={docs}>
+        <a href={guidePath(locale)}>{t('All guides','全部文档')}</a>
+        {groups.map(group => <div><strong>{group.title}</strong>{group.items.map(item =>
+          <a href={guidePath(locale,item.slug)} aria-current={slug === item.slug ? 'page' : undefined}>{item.title}</a>)}</div>)}
+      </nav></details>
+      <nav class="doc-sidebar" aria-label={docs}><a class="doc-overview" href={guidePath(locale)}>{t('All guides','文档目录')}</a>
+        {groups.map(group => <div><strong>{group.title}</strong>{group.items.map(item =>
+          <a href={guidePath(locale,item.slug)} aria-current={slug === item.slug ? 'page' : undefined}>{item.title}</a>)}</div>)}
+      </nav>
+    </aside>}
+    <article>
+      <h1>{title}</h1><p class="doc-lead">{description}</p>
+      {Content ? <div class="doc-text"><Content /></div> : groups.map(group => <section class="doc-group">
+        <h2>{group.title}</h2><div class="doc-topics">{group.items.map(item => <a href={guidePath(locale,item.slug)}>
+          <h3>{item.title}</h3><p>{item.description}</p>
+        </a>)}</div></section>)}
+    </article>
+  </div>
+</SiteLayout>

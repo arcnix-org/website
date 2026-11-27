@@ -6,7 +6,7 @@ order: 1
 
 ## Before you connect
 
-Install Arcnix on your computer. Have the server address, SSH port, username and either a password or a private key ready. A server you already reach with SSH is a good first choice. [Installation and downloads](https://arcnix.org/docs/install/)
+Install Arcnix on your computer. Have the server address, SSH port, username and either a password or a private key ready. A server you already reach with SSH is a good first choice. [Installation and downloads](/docs/install/)
 
 ## Explore without a server
 

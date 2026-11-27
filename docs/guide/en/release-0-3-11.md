@@ -16,8 +16,10 @@ If your configuration contains an unrecognized application for opening a file ty
 
 In **Settings → Logging**, **Session activity** shows recent connections, transfers, and other actions. On Windows, **Export session log** saves a copy even with automatic saving turned off. To keep future entries after you quit, turn on **Automatically save logs to this computer**. Choose a folder, a size limit per file, and how many old files to keep. **Open local log** opens the current `arcnix.log`.
 
+[Logging guide](/docs/logging/) · [SSH browser guide](/docs/ssh-browser/)
+
 ## Other changes since 0.3.8
 
 The file manager adds a parent-folder button and wraps long filenames in icon view. The terminal accepts input method text. This release also includes fixes for blank Linux desktop windows, the dark-theme file-size checkbox, and Docker image update detection. Source builds now use Rust 1.100.0.
 
-[Download Arcnix 0.3.11](/#downloads) · [Full changelog on GitHub](https://github.com/arcnix-org/arcnix/blob/v0.3.11/CHANGELOG.md)
+[Download Arcnix 0.3.11](/downloads/) · [Full changelog on GitHub](https://github.com/arcnix-org/arcnix/blob/v0.3.11/CHANGELOG.md)

@@ -8,7 +8,7 @@ Use Node.js 24 LTS and npm. Run `npm ci` and `npm run dev`. Run `npm run build` 
 
 Edit the user guides in [docs/guide/en](docs/guide/en) and [docs/guide/zh-cn](docs/guide/zh-cn). Give matching translations the same filename and set the title, description and navigation order in frontmatter. Use `npm run dev` to preview edits at `/docs/` and `/zh-cn/docs/`. Merging a guide change into this repository’s `main` automatically builds and publishes the site.
 
-English is served at `/` and Simplified Chinese at `/zh-cn/`. Both use the same Astro page component. Product screenshots in `public/media` come from the Arcnix desktop test fixtures.
+English is served at `/` and Simplified Chinese at `/zh-cn/`. Both have independent workspace, operations, video, download and guide pages. Each walkthrough has its own URL, MP4, poster and bilingual captions. Video transcripts are built from the captions. Product screenshots in `public/media` come from the Arcnix desktop test fixtures.
 
 ## Deployment
 

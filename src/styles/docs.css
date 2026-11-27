@@ -1,17 +1,16 @@
 .guide-shell { background:#eff4ef; color:#182a23; min-height:100vh; color-scheme:light; }
 .guide-shell header { background:#101516; color:#f3f5f2; }
-.guide-shell .skip { color:#f3f5f2; }
-.guide-shell .docs-home { color:#cbd9d1; }
-.guide-shell main { max-width:64rem; padding-block:clamp(1.5rem,3.5vw,3rem) 4rem; }
+.guide-shell .skip, .guide-shell footer { color:#f3f5f2; }
+.guide-shell .doc-layout, .guide-shell .doc-index { max-width:64rem; padding-block:clamp(1.5rem,3.5vw,3rem) 4rem; }
 .guide-shell h1 { color:#162e23; font-size:clamp(1.625rem,2.5vw,2.125rem); font-weight:640; letter-spacing:-.035em; line-height:1.24; margin-bottom:.6rem; }
 .guide-shell main p, .guide-shell li { color:#354c42; line-height:1.75; }
 .guide-shell .doc-lead { font-size:1rem; color:#476052; }
 .guide-shell main a:hover { color:#195e42; }
 .guide-shell main a:focus-visible, .guide-shell summary:focus-visible { outline:3px solid #387054; outline-offset:3px; }
-.doc-topics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2.5rem; margin-top:1.65rem; }
+.doc-topics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2.5rem; margin-top:.7rem; }
 .doc-topics a { border-top:1px solid #b9cbbd; padding:1rem 0 1.25rem; }
-.doc-topics a:hover h2 { text-decoration:underline; text-underline-offset:.2em; }
-.doc-topics h2 { font-size:1.125rem; letter-spacing:-.015em; margin-bottom:.35rem; }
+.doc-topics a:hover h3 { text-decoration:underline; text-underline-offset:.2em; }
+.doc-topics h3 { font-size:1.125rem; letter-spacing:-.015em; margin:0 0 .35rem; }
 .doc-layout { display:grid; grid-template-columns:13rem minmax(0,40rem); gap:clamp(2rem,4vw,4rem); }
 .doc-layout article { min-width:0; }
 .doc-sidebar, .doc-mobile-nav nav { display:grid; gap:.25rem; align-content:start; }
@@ -38,3 +37,8 @@
   .guide-shell .bar { gap:.6rem 1rem; }
   .guide-shell .nav-tools { gap:.75rem; }
 }
+
+.doc-group { margin-top:2rem; }
+.doc-group > h2 { font-size:1.3rem; }
+.doc-sidebar div, .doc-mobile-nav nav div { display:grid; gap:.1rem; }
+.doc-sidebar strong, .doc-mobile-nav strong { font-size:.82rem; color:#496454; margin:.65rem .75rem .15rem; }

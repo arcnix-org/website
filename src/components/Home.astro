@@ -1,165 +1,48 @@
 ---
+import SiteLayout from './SiteLayout.astro';
 import Icon from './Icon.astro';
-import WorkspaceTour from './WorkspaceTour.astro';
-import '../styles/site.css';
-
-interface Props { locale: 'en' | 'zh-CN' }
+import { releaseGuide, sitePath, tag, translate, type Locale } from '../lib/site';
+interface Props { locale: Locale }
 const { locale } = Astro.props;
-const zh = locale === 'zh-CN';
-const t = (en: string, cn: string) => zh ? cn : en;
-const brand = t('Arcnix', '阿牛桌面');
-const repo = 'https://github.com/arcnix-org/arcnix';
-const guide = t('/docs/', '/zh-cn/docs/');
-const version = '0.3.11';
-const tag = `v${version}`;
-const release = `${repo}/releases/tag/${tag}`;
-const asset = (file: string) => `${repo}/releases/download/${tag}/${file}`;
-const binary = (suffix: string) => asset(`arcnix-${tag}-${suffix}`);
-const platforms = [
-  { name: 'Windows', detail: t('x64 · WebView2 Runtime', 'x64 · 需要 WebView2'), downloads: [
-    { name: t('Download installer', '下载安装器'), suffix: 'windows-amd64-setup.exe', type: '.exe' },
-    { name: t('Portable ZIP', '便携版 ZIP'), suffix: 'windows-amd64.zip', type: '.zip' },
-  ] },
-  { name: 'macOS', detail: t('Apple Silicon · macOS 13+', 'Apple Silicon · macOS 13 及以上'), downloads: [
-    { name: 'Apple Silicon', suffix: 'macos-arm64.dmg', type: '.dmg' },
-  ] },
-  { name: 'Linux', detail: t('glibc 2.39+ · GTK 3 · WebKitGTK 4.1', 'glibc 2.39+ · GTK 3 · WebKitGTK 4.1'), downloads: [
-    { name: 'x64', suffix: 'linux-amd64.tar.gz', type: '.tar.gz' },
-    { name: 'ARM64', suffix: 'linux-arm64.tar.gz', type: '.tar.gz' },
-  ] },
-];
-const title = t('Arcnix — A desktop workspace for SSH servers', '阿牛桌面（Arcnix）— 通过 SSH 管理服务器的桌面工作台');
-const intro = t('Connect over SSH to browse remote files, edit code and open a shell in the same workspace.', '通过 SSH 连接，在同一张桌面上浏览远程文件、编辑代码、打开终端。');
-const views = [
-  { id: 'code', width: 1440, height: 900, icon: 'code', name: t('Code editor', 'Code 编辑器'), detail: t('Edit a remote file, save it over SFTP and read the Markdown preview alongside your changes.', '直接编辑远程文件，通过 SFTP 保存，在旁边查看 Markdown 的渲染效果。') },
-  { id: 'files', width: 1126, height: 938, icon: 'files', name: t('File explorer', '资源管理器'), detail: t('Choose a list or icon view for each folder. Open images, PDFs and text files directly from the file list.', '按文件夹保存列表或图标视图，直接从文件列表打开图片、PDF 和文本。') },
-  { id: 'terminal', width: 1126, height: 938, icon: 'terminal', name: t('SSH terminal', 'SSH 终端'), detail: t('Open a shell in any remote folder and reconnect to existing sessions when tmux is available.', '在所选远端文件夹直接打开终端。服务器装有 tmux 时可恢复原有会话。') },
-  { id: 'monitor', width: 872, height: 635, icon: 'monitor', name: t('Monitor', '监控'), detail: t('Check CPU, memory, disks, network, processes, listening ports, and service logs.', '查看 CPU、内存、磁盘、网络、进程、监听端口和服务日志。') },
-  { id: 'docker-tour', width: 1440, height: 900, icon: 'docker', name: 'Docker', detail: t('Browse containers and volumes, check port mappings and read logs. Select a container to inspect its mounts and recent output.', '查看容器与卷、检查端口映射、读取容器日志。选择容器可查看挂载和最近的输出。') },
-] as const;
-const operations = [
-  { icon: 'code', title: t('Install server apps', '安装服务器应用'), body: t('Choose from system packages, Snap, or Docker Compose based on what the server supports.', '在应用商店里选择当前服务器支持的安装方式，包括系统包、Snap 和 Docker Compose。') },
-  { icon: 'tasks', title: t('Run tasks across hosts', '跨服务器执行任务'), body: t('Pick trusted hosts, review the plan for each one, and check the results after you reconnect.', '选择已信任的服务器，逐台核对执行计划。重新连接后仍可查询任务结果。') },
-  { icon: 'backup', title: t('Restore from a snapshot', '从快照恢复文件'), body: t('Browse restic snapshots, select the files you need, and verify the restore in a new directory.', '浏览 restic 快照，选择所需文件，恢复到新的目录并验证结果。') },
-] as const;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const t = translate(locale);
+const link = (path: string) => sitePath(locale, path);
+const intro = t('Open files, edit code and run a terminal on your server over SSH. Every connection has its own desktop.', '通过 SSH 打开远程文件、编辑代码、运行终端。每台服务器都有自己的桌面。');
 ---
-<!DOCTYPE html>
-<html lang={locale}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101516" />
-    <title>{title}</title>
-    <meta name="description" content={intro} />
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={new URL('/', Astro.site)} />
-    <link rel="alternate" hreflang="zh-CN" href={new URL('/zh-cn/', Astro.site)} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={intro} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL('/media/viewers-tour.webp', Astro.site)} />
-  </head>
-  <body>
-    <a class="skip" href="#main">{t('Skip to content', '跳到正文')}</a>
-    <header><div class="wrap bar">
-      <a class="brand" href={zh ? '/zh-cn/' : '/'}><img width="34" height="34" src="/brand.svg" alt="" />{brand}</a>
-      <nav aria-label={t('Main navigation', '主导航')}>
-        <a href="#workspace">{t('Workspace','工作台')}</a>
-        <a href="#operations">{t('Operations','运维')}</a>
-        <a href="#downloads">{t('Downloads','下载')}</a>
-        <a href={guide}>{t('Docs','文档')}</a>
-      </nav>
-      <div class="nav-tools">
-        <a class="language" lang={zh ? 'en' : 'zh-CN'} hreflang={zh ? 'en' : 'zh-CN'} href={zh ? '/' : '/zh-cn/'}><Icon name="globe" />{t('中文','English')}</a>
-        <a class="git" href={repo} aria-label={t('Arcnix on GitHub','阿牛桌面的 GitHub 仓库')}><Icon name="github" /><span>GitHub</span></a>
+<SiteLayout locale={locale} title={t('A desktop workspace for SSH servers', '通过 SSH 管理服务器的桌面工作台')} description={intro}>
+  <section class="hero"><div class="wrap hero-inner">
+    <div class="hero-copy">
+      <a class="hero-release" href={link(releaseGuide)}>{tag}<span></span>{t('Release notes','更新说明')}</a>
+      <h1>{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
+      <p>{intro}</p>
+      <div class="actions">
+        <a class="button primary" id="downloads" href={link('downloads/')}><Icon name="download"/>{t('Download Arcnix','下载阿牛桌面')}</a>
+        <a class="hero-docs" href={link('docs/quick-start/')}>{t('Quick start','快速上手')}</a>
       </div>
-    </div></header>
-    <main id="main">
-      <section class="hero" aria-labelledby="hero-title"><div class="wrap hero-inner">
-        <div class="hero-copy">
-          <a class="hero-release" href={guide + `release-${version.replaceAll('.', '-')}/`}>{tag}<span></span>{t('Release notes','发行说明')}</a>
-          <h1 id="hero-title">{t('A desktop for','用桌面的方式')}<br/><em>{t('your servers.','管理服务器')}</em></h1>
-          <p>{intro}</p>
-          <div class="actions">
-            <a class="button primary" href="#downloads"><Icon name="download" />{t('Download Arcnix','下载阿牛桌面')}</a>
-            <a class="hero-docs" href={guide + 'quick-start/'}>{t('Quick start','快速上手')}</a>
-          </div>
-        </div>
-        <WorkspaceTour locale={locale} />
-      </div></section>
-      <section class="workspace" id="workspace"><div class="wrap section">
-        <h2>{t('Explore the workspace','看看工作台里的工具')}</h2>
-        <div class="viewer">
-          <div class="switches">
-            {views.map((view, i) => <a href={`/media/${view.id}.webp`} class:list={['switch', { selected: i === 0 }]} aria-current={i === 0 ? 'true' : undefined} data-width={view.width} data-height={view.height}>
-              <Icon name={view.icon}/><span><strong>{view.name}</strong><small>{view.detail}</small></span>
-            </a>)}
-          </div>
-          <figure><a id="screen-link" href={`/media/${views[0].id}.webp`} aria-label={t('Open full-size screenshot','查看原尺寸截图')}><img id="screen" src={`/media/${views[0].id}.webp`} width={views[0].width} height={views[0].height} alt={views[0].name} loading="lazy" /></a>
-          <figcaption><span id="screen-name">{views[0].name}</span><a class="full-size" href={`/media/${views[0].id}.webp`}>{t('View full size', '查看原图')}</a></figcaption><p class="mobile-detail">{views[0].detail}</p></figure>
-        </div>
-        <p class="workspace-note">{t('On Windows and Linux, the built-in browser can open sites through the server’s SSH connection, including services listening on the server’s loopback address.', '在 Windows 和 Linux 上，内置浏览器可通过服务器的 SSH 连接访问网页，包括仅监听服务器回环地址的服务。')}</p>
-      </div></section>
-      <section class="ops" id="operations"><div class="wrap section">
-        <h2>{t('Day-to-day operations','日常运维')}</h2>
-        <div class="features">{operations.map(op => <article><Icon name={op.icon}/><h3>{op.title}</h3><p>{op.body}</p></article>)}</div>
-      </div></section>
-      <section class="downloads" id="downloads"><div class="wrap section">
-        <div class="downloads-heading">
-          <h2>{t('Download Arcnix','下载阿牛桌面')}</h2>
-          <a class="version" href={release}>{tag}</a>
-        </div>
-        <div class="download-grid">
-          {platforms.map((platform, index) => <article class:list={['platform', { 'platform-main': index === 0 }]}>
-            <h3>{platform.name}</h3>
-            <p>{platform.detail}</p>
-            <ul>{platform.downloads.map((download, downloadIndex) => <li>
-              <a class:list={['platform-download', { 'featured-download': index === 0 && downloadIndex === 0 }]} href={binary(download.suffix)}>
-                <Icon name="download" /><span>{download.name}</span><small>{download.type}</small>
-              </a>
-            </li>)}</ul>
-          </article>)}
-        </div>
-        <div class="release-links">
-          <a href={asset('SHA256SUMS')}>{t('SHA-256 checksums', 'SHA-256 校验文件')}</a>
-          <a href={guide + 'install/'}>{t('Installation instructions','安装说明')}</a>
-          <a href={guide + 'release-' + version.replaceAll('.', '-') + '/'}>{t('Release notes', '本版更新说明')}</a>
-          <a href={repo + '/releases'}>{t('All releases','全部版本')}</a>
-        </div>
-      </div></section>
-    </main>
-    <footer><div class="wrap bar"><a class="brand" href={zh ? '/zh-cn/' : '/'}><img src="/brand.svg" alt="" width="24" height="24"/>{brand}</a>
-      <div><a href={repo}>GitHub</a><a href={repo + '/issues'}>{t('Issues','问题反馈')}</a><a href={repo + '/blob/main/LICENSE'}>Apache 2.0</a></div>
-    </div></footer>
-    <script>
-      const choices = document.querySelectorAll<HTMLAnchorElement>('.switch');
-      const screen = document.querySelector<HTMLImageElement>('#screen')!;
-      const full = document.querySelector<HTMLAnchorElement>('#screen-link')!;
-      const caption = document.querySelector<HTMLElement>('#screen-name')!;
-      const fullSize = document.querySelector<HTMLAnchorElement>('.full-size')!;
-      const detail = document.querySelector<HTMLElement>('.mobile-detail')!;
-      for (const choice of choices) {
-        choice.addEventListener('click', event => {
-          if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-          event.preventDefault();
-          for (const item of choices) {
-            item.classList.toggle('selected', item === choice);
-            if (item === choice) item.setAttribute('aria-current', 'true');
-            else item.removeAttribute('aria-current');
-          }
-          const name = choice.querySelector('strong')!.textContent!;
-          detail.textContent = choice.querySelector('small')!.textContent;
-          fullSize.href = choice.href;
-          screen.src = full.href = choice.href;
-          screen.width = Number(choice.dataset.width);
-          screen.height = Number(choice.dataset.height);
-          screen.alt = caption.textContent = name;
-        });
-      }
-    </script>
-  </body>
-</html>
+    </div>
+    <a class="hero-preview" id="walkthrough" href={link('videos/images-pdf/')}>
+      <img src="/media/viewers-tour.webp" alt={t('An image and a PDF open on the server desktop','在服务器桌面上查看图片和 PDF')} width="1440" height="900" fetchpriority="high" />
+      <span><i class="play-glyph" aria-hidden="true"></i>{t('Watch the desktop in action','观看桌面操作实录')} <small>0:22</small></span>
+    </a>
+  </div></section>
+  <section class="home-explore"><div class="wrap section">
+    <h2>{t('Explore Arcnix','探索阿牛桌面')}</h2>
+    <div class="directory">
+      <a id="workspace" href={link('workspace/')}><Icon name="files"/><h3>{t('Server workspace','服务器工作台')}</h3><p>{t('Browse remote folders, edit a file and open a shell where you are working.','浏览远程目录、编辑文件，在当前目录打开终端。')}</p><b aria-hidden="true">→</b></a>
+      <a id="operations" href={link('operations/')}><Icon name="monitor"/><h3>{t('Server operations','日常运维')}</h3><p>{t('Read service logs, inspect containers and find a task after reconnecting.','读取服务日志、检查容器，重新连接后继续查看任务结果。')}</p><b aria-hidden="true">→</b></a>
+      <a href={link('videos/')}><Icon name="book"/><h3>{t('Video walkthroughs','操作实录')}</h3><p>{t('Follow short recordings of file transfers, the editor and local logging.','跟着短片操作文件传输、代码编辑器和本地日志设置。')}</p><b aria-hidden="true">→</b></a>
+    </div>
+  </div></section>
+  <section class="wrap section"><h2>{t('New in ', '本版更新 · ')}{tag}</h2>
+    <div class="page-links"><a href={link('docs/ssh-browser/')}>{t('Browse server-local sites from Linux','在 Linux 上访问服务器本地网页')} →</a><a href={link('videos/local-logs/')}>{t('Save session activity to this computer','将操作日志保存到本机')} →</a><a href={link(releaseGuide)}>{t('Release notes','完整更新说明')} →</a></div>
+  </section>
+  <script is:inline>
+    // Previously shared homepage URLs used fragments instead of page paths.
+    function followOldBookmark() {
+      const routes = { '#workspace':'workspace/', '#operations':'operations/', '#downloads':'downloads/', '#walkthrough':'videos/' };
+      const path = routes[location.hash];
+      if (path) location.replace(new URL(path, document.querySelector('link[rel="canonical"]').href).pathname);
+    }
+    followOldBookmark();
+    window.addEventListener('hashchange', followOldBookmark);
+  </script>
+</SiteLayout>

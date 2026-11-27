@@ -1,12 +1,11 @@
 import { getCollection } from 'astro:content';
 
-export type Locale = 'en' | 'zh-cn';
+import { locales, sitePath, type Locale } from './site';
 export const guidePath = (locale: Locale, slug = '') =>
-  `${locale === 'en' ? '' : '/zh-cn'}/docs/${slug ? slug + '/' : ''}`;
+  sitePath(locale, 'docs/' + (slug ? slug + '/' : ''));
 
 export async function guideRoutes() {
   const entries = await getCollection('guides');
-  const locales = ['en', 'zh-cn'] as const;
   return locales.flatMap(locale => {
     const pages = entries.filter(entry => entry.id.startsWith(locale + '/'))
       .sort((a, b) => a.data.order - b.data.order);

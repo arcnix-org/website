@@ -1,0 +1,28 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import { sitePath, translate, type Locale } from '../lib/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translate(locale);
+const link = (path: string) => sitePath(locale, path);
+const title = t('Server operations','日常运维');
+const intro = t('Inspect a live service, run work across hosts, or recover files from a backup.', '检查正在运行的服务、跨服务器执行任务，或从备份恢复文件。');
+const workflows = [
+  { title: t('Inspect containers and ports','检查容器和端口'), body: t('Open Docker on a connected desktop to see container status, published ports, mounted volumes and recent output.', '从已连接的桌面打开 Docker，查看容器状态、已发布端口、挂载卷和最近输出。'), image: 'docker-tour', page: 'videos/docker/' },
+  { title: t('Trace a service problem','定位服务问题'), body: t('Start with CPU and network activity in Monitor, then open a systemd service and read its journal.', '先在监控中查看 CPU 和网络活动，再打开对应的 systemd 服务读取日志。'), image: 'monitor-tour', page: 'videos/monitor/' },
+];
+const guides = [
+  { title: t('Install server apps','安装服务器应用'), body: t('Choose a supported package or Compose project in the App Center. Inspect the target server before submitting the installation.', '在应用商店选择系统支持的软件包或 Compose 项目，核对目标服务器后提交安装。'), path: 'monitor-docker' },
+  { title: t('Run tasks and restore backups','执行任务与恢复备份'), body: t('Review each host before submitting a script, query its result after reconnecting, or restore selected files from a restic snapshot.', '运行脚本前逐台核对目标，重连后查询任务结果，或从 restic 快照恢复选定文件。'), path: 'tasks' },
+  { title: t('Inspect server records','查看服务器记录'), body: t('Check storage use and retention before cleaning up records. Open a cleanup report to review the result.', '清理前核对记录占用空间和保留策略，完成后打开清理报告查看结果。'), path: 'records' },
+];
+---
+<SiteLayout locale={locale} title={title} description={intro} image="/media/docker-tour.webp">
+  <div class="wrap section"><h1>{title}</h1><p class="page-lead">{intro}</p>
+    <div class="operations-grid">{workflows.map(item => <a class="media-card" href={link(item.page)}>
+      <img src={'/media/'+item.image+'.webp'} alt="" width="1440" height="900" />
+      <h2>{item.title}</h2><p>{item.body}</p><span class="inline-link">{t('Watch walkthrough','观看实录')} →</span>
+    </a>)}</div>
+    <div class="directory">{guides.map(item => <a href={link('docs/'+item.path+'/')}><h3>{item.title}</h3><p>{item.body}</p><b aria-hidden="true">→</b></a>)}</div>
+  </div>
+</SiteLayout>

@@ -19,4 +19,4 @@ order: 9
 
 新增的 Nginx 应用可查看服务器或容器中 Nginx 的站点和日志。编辑站点后，可以核对差异、测试配置，再重新加载。
 
-[下载阿牛桌面 0.3.8](/zh-cn/#downloads) · [在 GitHub 查看完整更新记录](https://github.com/arcnix-org/arcnix/blob/v0.3.8/CHANGELOG.md)
+[下载阿牛桌面 0.3.8](https://github.com/arcnix-org/arcnix/releases/tag/v0.3.8) · [在 GitHub 查看完整更新记录](https://github.com/arcnix-org/arcnix/blob/v0.3.8/CHANGELOG.md)

@@ -19,4 +19,4 @@ A folder can contain a filename that cannot be decoded as UTF-8. The file browse
 
 Open the Nginx app to inspect sites and logs for a server installation or an Nginx container. You can edit a site, review the changes and test the configuration before reloading it.
 
-[Download Arcnix 0.3.8](/#downloads) · [Full changelog on GitHub](https://github.com/arcnix-org/arcnix/blob/v0.3.8/CHANGELOG.md)
+[Download Arcnix 0.3.8](https://github.com/arcnix-org/arcnix/releases/tag/v0.3.8) · [Full changelog on GitHub](https://github.com/arcnix-org/arcnix/blob/v0.3.8/CHANGELOG.md)
