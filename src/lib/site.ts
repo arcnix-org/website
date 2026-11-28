@@ -4,7 +4,7 @@ export const sections = ['workspace', 'operations', 'videos', 'docs', 'downloads
 export type Section = typeof sections[number];
 
 export const repo = 'https://github.com/arcnix-org/arcnix';
-export const version = '0.3.13';
+export const version = '0.3.12';
 export const tag = `v${version}`;
 export const releaseGuide = `docs/release-${version.replaceAll('.', '-')}/`;
 export const sitePath = (locale: Locale, path = '') => (locale === 'en' ? '/' : '/zh-cn/') + path;
