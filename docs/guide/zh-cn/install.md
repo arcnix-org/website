@@ -10,7 +10,7 @@ order: 2
 
 ## macOS
 
-macOS 13 及以上的 Apple Silicon 电脑请选择 DMG 安装包。打开磁盘映像，将 `Arcnix.app` 拖到「应用程序」，再从「应用程序」启动。当前发布包采用临时签名，尚未经过 Apple 公证。[下载 macOS 版](/zh-cn/downloads/#macos)
+在 macOS 13 及以上版本中，配备苹果 M 系列芯片的 Mac 请选择 **Apple Silicon** 安装包，配备英特尔处理器的 Mac 请选择 **Intel** 安装包。打开磁盘映像，将 `Arcnix.app` 拖到「应用程序」，再从「应用程序」启动。当前发布包采用临时签名，尚未经过 Apple 公证。[下载 macOS 版](/zh-cn/downloads/#macos)
 
 ## Linux
 

@@ -10,7 +10,7 @@ For a first installation, choose **Windows → Download installer**. Run the ins
 
 ## macOS
 
-Use the Apple Silicon DMG on macOS 13 or later. Open the disk image, drag `Arcnix.app` to Applications, then launch it from Applications. The distributed app is ad-hoc signed and has not been notarized by Apple. [Download for macOS](/downloads/#macos)
+On macOS 13 or later, choose the **Apple Silicon** DMG for a Mac with an Apple M-series chip or the **Intel** DMG for a Mac with an Intel processor. Open the disk image, drag `Arcnix.app` to Applications, then launch it from Applications. The distributed app is ad-hoc signed and has not been notarized by Apple. [Download for macOS](/downloads/#macos)
 
 ## Linux
 

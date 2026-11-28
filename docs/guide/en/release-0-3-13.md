@@ -16,6 +16,10 @@ In the same Appearance page, the accent color palette now offers 36 presets.
 
 A progress ring around the upload or download icon shows how far transfers in that direction have advanced. In Settings, hover over a restore icon or focus it with the keyboard to see which settings it restores.
 
+## Install on an Intel Mac
+
+Intel Macs running macOS 13 or later can now use the **Intel** disk image on the downloads page. Macs with an Apple M-series chip continue to use the **Apple Silicon** disk image.
+
 ## Windows startup and configuration
 
 The default configuration file is `%APPDATA%\Arcnix\config.json`. When both configurations exist, Arcnix opens this file and leaves the old directory intact. It migrates the old configuration and related data only if the new file is missing. With `--config`, Arcnix opens the path you supply.

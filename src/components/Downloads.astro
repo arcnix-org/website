@@ -14,8 +14,9 @@ const platforms = [
     { name: t('Download installer', '下载安装器'), suffix: 'windows-amd64-setup.exe', type: '.exe' },
     { name: t('Portable ZIP', '便携版 ZIP'), suffix: 'windows-amd64.zip', type: '.zip' },
   ] },
-  { name: 'macOS', detail: t('Apple Silicon · macOS 13+', 'Apple Silicon · macOS 13 及以上'), downloads: [
+  { name: 'macOS', detail: t('macOS 13 or later', 'macOS 13 及以上'), downloads: [
     { name: 'Apple Silicon', suffix: 'macos-arm64.dmg', type: '.dmg' },
+    { name: 'Intel', suffix: 'macos-amd64.dmg', type: '.dmg' },
   ] },
   { name: 'Linux', detail: t('glibc 2.39+ · GTK 3 · WebKitGTK 4.1', 'glibc 2.39+ · GTK 3 · WebKitGTK 4.1'), downloads: [
     { name: 'x64', suffix: 'linux-amd64.tar.gz', type: '.tar.gz' },
