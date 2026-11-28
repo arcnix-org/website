@@ -16,8 +16,12 @@ order: 13
 
 上传和下载图标各自用外圈显示对应方向的传输进度。在设置中，将鼠标移到恢复图标上，或用键盘聚焦它，即可看到具体会恢复哪一项。
 
-## 查找 Windows 配置文件
+## Windows 启动与配置
 
-Windows 默认配置文件现位于 `%APPDATA%\Arcnix\config.json`。正常启动时，阿牛桌面会迁移原默认位置的配置及相关数据。使用 `--config` 时，应用会继续使用指定的路径。
+Windows 默认配置文件位于 `%APPDATA%\Arcnix\config.json`。新旧配置并存时，阿牛桌面直接读取这个文件，并保留旧目录。只有缺少新配置时才迁移旧配置及相关数据。使用 `--config` 时，应用继续读取指定的文件。
+
+此次重新发布修复了为所有用户安装后点击图标无法启动的问题。WebView2 数据保存在各自用户的 `%LOCALAPPDATA%\Arcnix\WebView2`，普通用户可以直接从 Program Files 启动应用。
+
+如果已安装首批 0.3.13，请重新下载安装程序并覆盖安装。两次发布的版本号相同，应用内更新不会提示升级。使用便携版时，请退出阿牛桌面，再用新 ZIP 中的 `arcnix.exe` 替换原文件。
 
 [下载阿牛桌面 0.3.13](/zh-cn/downloads/) · [在 GitHub 查看完整更新记录](https://github.com/arcnix-org/arcnix/blob/v0.3.13/CHANGELOG.md)

@@ -16,8 +16,12 @@ In the same Appearance page, the accent color palette now offers 36 presets.
 
 A progress ring around the upload or download icon shows how far transfers in that direction have advanced. In Settings, hover over a restore icon or focus it with the keyboard to see which settings it restores.
 
-## Find the Windows configuration
+## Windows startup and configuration
 
-The default Windows configuration file is now `%APPDATA%\Arcnix\config.json`. On a normal startup, Arcnix migrates the previous default configuration and its related data. If you use `--config`, Arcnix continues to use the path you supplied.
+The default configuration file is `%APPDATA%\Arcnix\config.json`. When both configurations exist, Arcnix opens this file and leaves the old directory intact. It migrates the old configuration and related data only if the new file is missing. With `--config`, Arcnix opens the path you supply.
+
+The revised Windows build fixes startup after an all-users installation. Each user's WebView2 data is stored in `%LOCALAPPDATA%\Arcnix\WebView2`, so opening the app from Program Files requires no administrator privileges.
+
+If you installed the first 0.3.13 build, download the installer again and run it over your existing installation. The version number is the same, so the in-app updater will not offer it. For a portable installation, close Arcnix and replace `arcnix.exe` with the copy from the new ZIP.
 
 [Download Arcnix 0.3.13](/downloads/) · [Full changelog on GitHub](https://github.com/arcnix-org/arcnix/blob/v0.3.13/CHANGELOG.md)
