@@ -10,6 +10,8 @@ Open **Settings → Appearance → Wallpaper → Add Wallpaper** and choose an i
 
 The tag on a thumbnail marks a custom wallpaper. Restoring the theme wallpaper keeps your gallery. Removing a custom wallpaper keeps the server file and frees the cached files when the last reference is removed.
 
+In the same Appearance page, the accent color palette now offers 36 presets.
+
 ## Follow transfers in the toolbar
 
 A progress ring around the upload or download icon shows how far transfers in that direction have advanced. In Settings, hover over a restore icon or focus it with the keyboard to see which settings it restores.
